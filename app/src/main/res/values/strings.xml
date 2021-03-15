@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">epaketo</string>
+    <string name="act1_title">e-paketo</string>
+    <string name="act1_username">Username</string>
+    <string name="act1_password">Password</string>
+    <string name="act1_forgot">Forgot the password?</string>
+    <string name="act1_login">Log in</string>
+    <string name="act1_singup">Sing up</string>
+    <string name="act1_track">Track your packages</string>
+    <string name="act1_or_login">Or login with:</string>
+
+    <string name="act1_ig">Instagram</string>
+    <string name="act1_fb">Facebook</string>
+    <string name="act1_apple">Apple ID</string>
+    <string name="act1_google">Google Plus</string>
+
+</resources>
