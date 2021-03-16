@@ -30,6 +30,8 @@
         android:ems="10"
         android:hint="@string/act1_username"
         android:inputType="textPersonName"
+        android:drawableStart="@drawable/icon_username"
+        android:drawablePadding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
@@ -45,6 +47,10 @@
         android:ems="10"
         android:hint="@string/act1_password"
         android:inputType="textPassword"
+
+        android:drawableStart="@drawable/icon_password"
+        android:drawablePadding="8dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,9 +62,7 @@
         android:id="@+id/act1_forgot_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
+        android:focusable="auto"
         android:onClick="sendMessage"
         android:text="@string/act1_forgot"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -79,7 +83,7 @@
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.458" />
+        app:layout_constraintVertical_bias="0.457" />
 
     <Button
         android:id="@+id/act1_singup_id"
@@ -92,11 +96,12 @@
         app:layout_constraintHorizontal_bias="0.753"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.457" />
+        app:layout_constraintVertical_bias="0.457"
+        app:backgroundTint="@color/blue_register"/>
 
     <Button
         android:id="@+id/act1_track_id"
-        android:layout_width="273dp"
+        android:layout_width="wrap_content"
         android:layout_height="63dp"
         android:layout_marginTop="144dp"
         android:text="@string/act1_track"
@@ -105,7 +110,8 @@
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.58000004" />
+        app:layout_constraintVertical_bias="0.58000004"
+        app:backgroundTint="@color/green_package"/>
 
     <TextView
         android:id="@+id/act1_or_login_id"
@@ -124,10 +130,9 @@
         android:id="@+id/imageView3"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:clickable="true"
         android:contentDescription="@string/act1_ig"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
+        android:focusable="auto"
+        android:focusableInTouchMode="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.14"
@@ -140,10 +145,9 @@
         android:id="@+id/imageView4"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:clickable="true"
         android:contentDescription="@string/act1_fb"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
+        android:focusable="auto"
+        android:focusableInTouchMode="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.37"
@@ -156,10 +160,9 @@
         android:id="@+id/imageView6"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:clickable="true"
         android:contentDescription="@string/act1_google"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
+        android:focusable="auto"
+        android:focusableInTouchMode="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.86"
@@ -172,10 +175,9 @@
         android:id="@+id/imageView5"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:clickable="true"
         android:contentDescription="@string/act1_apple"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
+        android:focusable="auto"
+        android:focusableInTouchMode="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.62"

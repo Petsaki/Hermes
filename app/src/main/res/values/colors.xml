@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue_sh">#0991ff</color>
+    <color name="green_package">#0AFF9B</color>
+    <color name="blue_register">#2255FF</color>
 </resources>
