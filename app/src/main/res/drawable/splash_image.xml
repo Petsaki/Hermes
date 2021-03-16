@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/blue_sh" />
+    <!--Ta padding einai gia ta android 4.4 giati den pairnoun ta size-->
+    <item
+        android:top="280dp"
+        android:bottom="256dp"
+        android:left="128dp"
+        android:right="128dp"
+        android:drawable="@drawable/ic_box" android:gravity="center" />
+</layer-list>

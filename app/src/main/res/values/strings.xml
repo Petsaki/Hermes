@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">epaketo</string>
-    <string name="act1_title">e-paketo</string>
+    <!-- space dekcia kai aristera-->
+    <string name="act1_title">\u0020epaketo\u0020</string>
     <string name="act1_username">Username</string>
     <string name="act1_password">Password</string>
     <string name="act1_forgot">Forgot the password?</string>
