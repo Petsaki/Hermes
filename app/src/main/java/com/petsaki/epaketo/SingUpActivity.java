@@ -45,7 +45,7 @@ public class SingUpActivity extends AppCompatActivity {
 
         usernametextInput = (TextInputLayout) findViewById(R.id.act2_text_input_username_id);
         passwordtextInput = (TextInputLayout) findViewById(R.id.act2_text_input_password_id);
-        emailtextInput = (TextInputLayout) findViewById(R.id.act2_text_input_email_id);
+        emailtextInput = (TextInputLayout) findViewById(R.id.forgot_text_input_email_id);
 
         progressBar=(ProgressBar)findViewById(R.id.act2_progressBar_id);
 

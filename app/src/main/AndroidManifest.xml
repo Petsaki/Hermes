@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.petsaki.epaketo">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,12 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/SplashScreenTheme">
-        <activity android:name=".SingUpActivity" android:theme="@style/Theme.Epaketo">
-
-        </activity>
-        <activity android:name=".ConnectedActivity" android:theme="@style/Theme.Epaketo">
-
-        </activity>
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:theme="@style/Theme.Epaketo"></activity>
+        <activity
+            android:name=".SingUpActivity"
+            android:theme="@style/Theme.Epaketo"></activity>
+        <activity
+            android:name=".ConnectedActivity"
+            android:theme="@style/Theme.Epaketo"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         if (username.isEmpty()){
             usernameText.setError("*Username is required!");
             usernameText.requestFocus();
+            return;
         }else{
             usernameText.setError(null);
         }
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         if (password.isEmpty()){
             passwordText.setError("*Password is required!");
             passwordText.requestFocus();
+            return;
         }else{
             passwordText.setError(null);
         }
@@ -78,13 +80,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Intent intent = new Intent( this, ConnectedActivity.class);
-        //startActivity(intent);
-        //finish();
     }
 
     public void sing_up_click(View view){
         Intent intent = new Intent( this, SingUpActivity.class);
+        startActivity(intent);
+    }
+
+    public void forgot_password_click(View view){
+        Intent intent = new Intent( this, ForgotPasswordActivity.class);
         startActivity(intent);
     }
 
