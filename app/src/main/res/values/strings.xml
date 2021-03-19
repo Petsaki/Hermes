@@ -15,4 +15,8 @@
     <string name="act1_apple">Apple ID</string>
     <string name="act1_google">Google Plus</string>
 
+    <!-- activity_sing_up -->
+
+    <string name="act2_singup">SING UP</string>
+    <string name="act2_error">LATHOS MLK</string>
 </resources>

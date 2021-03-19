@@ -4,7 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/blue_sh</item>
         <!--Gia thn mpara thn epanw einai-->
-        <item name="colorPrimaryVariant">@color/blue_sh</item>
+        <item name="colorPrimaryVariant">@color/black</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -20,5 +20,8 @@
             @drawable/splash_image
         </item>
         <item name="colorPrimaryVariant">@color/blue_sh</item>
+    </style>
+
+    <style name="SingUpTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
     </style>
 </resources>

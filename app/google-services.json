@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "856602866835",
+    "project_id": "epaketo-db",
+    "storage_bucket": "epaketo-db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:856602866835:android:a07d3fa585ca0477c58966",
+        "android_client_info": {
+          "package_name": "com.petsaki.epaketo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "856602866835-88nmem7i1pmar65cd8fbv8e9j8ti6a7j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFA-nXjQ2wbntP0kOUtCEXCHEiJpLaGRw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "856602866835-88nmem7i1pmar65cd8fbv8e9j8ti6a7j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

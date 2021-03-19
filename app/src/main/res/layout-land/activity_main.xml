@@ -99,17 +99,16 @@
 
     <Button
         android:id="@+id/act1_track_id"
-        android:layout_width="232dp"
-        android:layout_height="65dp"
+        android:layout_width="255dp"
+        android:layout_height="60dp"
         android:layout_marginTop="144dp"
-        android:layout_marginEnd="16dp"
         android:text="@string/act1_track"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.88"
+        app:layout_constraintHorizontal_bias="0.844"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.192" />
+        app:layout_constraintVertical_bias="0.222" />
 
     <TextView
         android:id="@+id/act1_or_login_id"

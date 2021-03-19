@@ -90,28 +90,28 @@
         android:layout_width="104dp"
         android:layout_height="60dp"
         android:layout_marginTop="44dp"
+        android:onClick="sing_up_click"
         android:text="@string/act1_singup"
+        app:backgroundTint="@color/blue_register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.753"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.457"
-        app:backgroundTint="@color/blue_register"/>
+        app:layout_constraintVertical_bias="0.457" />
 
     <Button
         android:id="@+id/act1_track_id"
-        android:layout_width="wrap_content"
-        android:layout_height="63dp"
+        android:layout_width="234dp"
+        android:layout_height="60dp"
         android:layout_marginTop="144dp"
         android:text="@string/act1_track"
+        app:backgroundTint="@color/green_package"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.58000004"
-        app:backgroundTint="@color/green_package"/>
+        app:layout_constraintVertical_bias="0.582" />
 
     <TextView
         android:id="@+id/act1_or_login_id"
