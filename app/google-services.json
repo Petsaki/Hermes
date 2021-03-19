@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "856602866835",
+    "firebase_url": "https://epaketo-db-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "epaketo-db",
     "storage_bucket": "epaketo-db.appspot.com"
   },
