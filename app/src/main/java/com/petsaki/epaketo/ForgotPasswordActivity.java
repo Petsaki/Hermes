@@ -23,7 +23,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private EditText emailText;
     private TextInputLayout emailtextInput;
     private ProgressBar progressBar;
+    private Toast toast;
 
+    private long lastTimeSent,spamTime = 0;
     FirebaseAuth auth;
 
     @Override
@@ -71,17 +73,31 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             emailtextInput.setError(null);
         }
 
-        progressBar.setVisibility(View.VISIBLE);
-        auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()){
-                    Toast.makeText(ForgotPasswordActivity.this,"Email sended!", Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(ForgotPasswordActivity.this,"Something went wrong.", Toast.LENGTH_LONG).show();
+        if(System.currentTimeMillis() > lastTimeSent + 60000) {
+            progressBar.setVisibility(View.VISIBLE);
+            auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        showToast("Email sended!");
+                        lastTimeSent = System.currentTimeMillis();
+                    } else {
+                        showToast("Something went wrong.");
+                    }
+                    progressBar.setVisibility(View.GONE);
                 }
-                progressBar.setVisibility(View.GONE);
-            }
-        });
+            });
+
+        }else{
+            showToast("You must wait 1 minute for a new one!");
+
+        }
+    }
+
+    public void showToast(String string) {
+        if (toast == null || toast.getView().getWindowVisibility() != View.VISIBLE) {
+            toast = Toast.makeText(ForgotPasswordActivity.this, string, Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 }

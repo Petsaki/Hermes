@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "856602866835-2176v8ldsu4pbu06bp1mktqemcqu0h9j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.petsaki.epaketo",
+            "certificate_hash": "ed1213c04ae47eef31eb15bbbcbc73d7a49410fd"
+          }
+        },
+        {
           "client_id": "856602866835-88nmem7i1pmar65cd8fbv8e9j8ti6a7j.apps.googleusercontent.com",
           "client_type": 3
         }

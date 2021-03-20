@@ -2,7 +2,7 @@
     <string name="app_name">epaketo</string>
     <!-- space dekcia kai aristera-->
     <string name="act1_title">\u0020epaketo\u0020</string>
-    <string name="act1_username">Username</string>
+    <string name="act1_email">Email ID</string>
     <string name="act1_password">Password</string>
     <string name="act1_forgot">Forgot the password?</string>
     <string name="act1_login">Log in</string>
@@ -16,7 +16,7 @@
     <string name="act1_google">Google Plus</string>
 
     <!-- activity_sing_up -->
-
+    <string name="act2_username">Username</string>
     <string name="act2_singup">SING UP</string>
     <string name="act2_error">LATHOS MLK</string>
 </resources>

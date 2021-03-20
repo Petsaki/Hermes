@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -26,9 +27,12 @@ public class SingUpActivity extends AppCompatActivity {
     private EditText passwordText, emailText;
     private TextInputLayout usernametextInput, passwordtextInput, emailtextInput;
     private ProgressBar progressBar;
+    private Toast toast;
+    private Button button;
 
     private FirebaseAuth mAuth;
 
+    private long lastTimeSent = 0;
 
 
     @Override
@@ -42,6 +46,7 @@ public class SingUpActivity extends AppCompatActivity {
         usernameText = (TextInputEditText) findViewById(R.id.act2_username_id);
         passwordText = (EditText) findViewById(R.id.act2_password_id);
         emailText = (EditText) findViewById(R.id.act2_email_id);
+        button=(Button)findViewById(R.id.act2_create_button_id);
 
         usernametextInput = (TextInputLayout) findViewById(R.id.act2_text_input_username_id);
         passwordtextInput = (TextInputLayout) findViewById(R.id.act2_text_input_password_id);
@@ -144,56 +149,45 @@ public class SingUpActivity extends AppCompatActivity {
         }else{
             emailtextInput.setError(null);
         }
-        progressBar.setVisibility(View.VISIBLE);
-        mAuth.createUserWithEmailAndPassword(email,password)
-                .addOnCompleteListener(SingUpActivity.this,new OnCompleteListener<AuthResult>() {
-                                           @Override
-                                           public void onComplete(@NonNull Task<AuthResult> task) {
-                                               if(task.isSuccessful()){
-                                                   User user = new User(username,email);
-                                                   FirebaseDatabase.getInstance().getReference("Users")
-                                                           .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                                           .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                       @Override
-                                                       public void onComplete(@NonNull Task<Void> task) {
-                                                           if(task.isSuccessful()){
-                                                               Toast.makeText(SingUpActivity.this, "User has been singed up successfully!",Toast.LENGTH_LONG).show();
-                                                           }else{
-                                                               Toast.makeText(SingUpActivity.this, "FAILED to singed up. Try again!", Toast.LENGTH_LONG).show();
-                                                           }
-                                                           progressBar.setVisibility(View.GONE);
-                                                       }
-                                                   });
-                                               }else {
-                                                   Toast.makeText(SingUpActivity.this, "Failed to singed up. Try again!", Toast.LENGTH_LONG).show();
-                                                   progressBar.setVisibility(View.GONE);
-                                               }
-                                           }
-                                       });
-/*
-        progressBar.setVisibility(View.VISIBLE);
-        mAuth.createUserWithEmailAndPassword(email,password)
-                .addOnCompleteListener(SingUpActivity.this, task -> {
-                    if (task.isSuccessful()){
-                        User user= new User(username,email);
-                        FirebaseDatabase.getInstance().getReference("Users")
-                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                .setValue(user).addOnCompleteListener(task1 -> {
-                                    if (task1.isSuccessful()){
-                                        Toast.makeText(SingUpActivity.this, "User has been singed up successfully!",Toast.LENGTH_LONG).show();
 
-                                    }else{
-                                        Toast.makeText(SingUpActivity.this, "FAILED to singed up. Try again!", Toast.LENGTH_LONG).show();
+            progressBar.setVisibility(View.VISIBLE);
+            button.setEnabled(false);
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(SingUpActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                User user = new User(username, email);
+                                FirebaseDatabase.getInstance().getReference("Users")
+                                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                        .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            showToast("User has been singed up successfully!"+mAuth.getCurrentUser());
+                                            FirebaseAuth.getInstance().signOut();
+                                        } else {
+                                            showToast("Failed to singed up. Try again!");
+                                        }
+                                        progressBar.setVisibility(View.GONE);
                                     }
-                            progressBar.setVisibility(View.GONE);
-                            Toast.makeText(SingUpActivity.this, "PERASA",Toast.LENGTH_LONG).show();
-                            });
-                    }else{
-                        Toast.makeText(SingUpActivity.this, "Failed to singed up. Try again!", Toast.LENGTH_LONG).show();
-                        progressBar.setVisibility(View.GONE);
-                    }
-                });*/
+                                });
+                            } else {
+                                showToast("Failed to singed up. Try again!");
+                                progressBar.setVisibility(View.GONE);
+                            }
+                            button.setEnabled(true);
+                        }
 
+                    });
+
+
+    }
+    public void showToast(String string) {
+        if (toast == null || toast.getView().getWindowVisibility() != View.VISIBLE) {
+            toast = Toast.makeText(SingUpActivity.this, string, Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
 }

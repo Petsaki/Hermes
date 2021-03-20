@@ -23,15 +23,15 @@
         app:layout_constraintVertical_bias="0.046" />
 
     <EditText
-        android:id="@+id/act1_usernane_id"
+        android:id="@+id/act1_email_id"
         android:layout_width="232dp"
         android:layout_height="49dp"
         android:autofillHints="username"
-        android:ems="10"
-        android:hint="@string/act1_username"
-        android:inputType="textPersonName"
         android:drawableStart="@drawable/icon_username"
         android:drawablePadding="8dp"
+        android:ems="10"
+        android:hint="@string/act1_email"
+        android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
@@ -79,6 +79,7 @@
         android:layout_marginTop="44dp"
         android:onClick="login_in_click"
         android:text="@string/act1_login"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.25"
@@ -128,7 +129,7 @@
         app:layout_constraintVertical_bias="0.843" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/act1_ig_view_id"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:contentDescription="@string/act1_ig"
@@ -143,7 +144,7 @@
         app:srcCompat="@drawable/icon_ig" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/act1_fb_view_id"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:contentDescription="@string/act1_fb"
@@ -158,12 +159,13 @@
         app:srcCompat="@drawable/icon_fb" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/act1_google_view_id"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:contentDescription="@string/act1_google"
         android:focusable="auto"
         android:focusableInTouchMode="false"
+        android:onClick="google_sing_up_click"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.86"
@@ -173,7 +175,7 @@
         app:srcCompat="@drawable/icon_google" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/act1_apple_view_id"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:contentDescription="@string/act1_apple"

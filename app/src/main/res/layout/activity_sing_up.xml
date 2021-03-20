@@ -21,26 +21,25 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/act2_text_input_username_id"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/act1_username"
+        android:hint="@string/act2_username"
+        app:counterEnabled="true"
+        app:counterMaxLength="30"
         app:errorEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.23000002"
-        app:counterEnabled="true"
-        app:counterMaxLength="30"
 
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        >
+        app:layout_constraintVertical_bias="0.23000002">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/act2_username_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLength="30"/>
+            android:maxLength="30" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -100,6 +99,7 @@
         android:layout_height="60dp"
         android:onClick="create_account_click"
         android:text="CREATE ACCOUNT"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
