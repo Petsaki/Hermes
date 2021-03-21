@@ -3,13 +3,18 @@ package com.petsaki.epaketo;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -61,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
         setTheme(R.style.Theme_Epaketo);
         setContentView(R.layout.activity_main);
 
+        emailText = (EditText) findViewById(R.id.act1_email_id);
+        passwordText = (EditText) findViewById(R.id.act1_password_id);
         button=(Button)findViewById(R.id.act1_login_id);
 
         progressBar=(ProgressBar)findViewById(R.id.act1_progressBar_id);
@@ -71,11 +78,25 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+        passwordText.setOnEditorActionListener(editorListener);
+
     }
 
+    private TextView.OnEditorActionListener editorListener = new TextView.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            switch(actionId){
+                case EditorInfo
+                        .IME_ACTION_SEND:
+                    button.performClick();
+                    break;
+            }
+            return true;
+        }
+    };
+
     public void login_in_click(View view) {
-        emailText = (EditText) findViewById(R.id.act1_email_id);
-        passwordText = (EditText) findViewById(R.id.act1_password_id);
+
 
         String email = emailText.getText().toString().trim();
         String password = passwordText.getText().toString().trim();
@@ -100,6 +121,10 @@ public class MainActivity extends AppCompatActivity {
             passwordText.setError(null);
         }
         if (System.currentTimeMillis() > lastTimeSent + 30000) {
+            closeKeyboard();
+            button.setFocusable(true);
+            button.setFocusableInTouchMode(true);
+            button.requestFocus();
             progressBar.setVisibility(View.VISIBLE);
             button.setEnabled(false);
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -201,6 +226,14 @@ public class MainActivity extends AppCompatActivity {
         if (toast == null || toast.getView().getWindowVisibility() != View.VISIBLE) {
             toast = Toast.makeText(MainActivity.this, string, Toast.LENGTH_LONG);
             toast.show();
+        }
+    }
+
+    private void closeKeyboard(){
+        View view=this.getCurrentFocus();
+        if (view !=null){
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(),0);
         }
     }
 

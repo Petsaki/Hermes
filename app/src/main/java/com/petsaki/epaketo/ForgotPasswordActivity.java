@@ -3,14 +3,20 @@ package com.petsaki.epaketo;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,9 +30,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private TextInputLayout emailtextInput;
     private ProgressBar progressBar;
     private Toast toast;
+    private Button button;
 
     private long lastTimeSent,spamTime = 0;
-    FirebaseAuth auth;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +43,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         emailText = (EditText) findViewById(R.id.forgot_email_id);
         emailtextInput = (TextInputLayout) findViewById(R.id.forgot_text_input_email_id);
         progressBar=(ProgressBar)findViewById(R.id.forgot_progressBar);
+        button=(Button) findViewById(R.id.forgot_button);
         auth=FirebaseAuth.getInstance();
 
         emailText.addTextChangedListener(new TextWatcher() {
@@ -56,7 +64,21 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
             }
         });
+        emailText.setOnEditorActionListener(editorListener);
     }
+
+    private TextView.OnEditorActionListener editorListener = new TextView.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            switch(actionId){
+                case EditorInfo
+                        .IME_ACTION_SEND:
+                    button.performClick();
+                    break;
+            }
+            return true;
+        }
+    };
 
     public void reset_password_click(View view){
         String email = emailText.getText().toString().trim();
@@ -73,18 +95,28 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             emailtextInput.setError(null);
         }
 
+
+
         if(System.currentTimeMillis() > lastTimeSent + 60000) {
             progressBar.setVisibility(View.VISIBLE);
+            button.setEnabled(false);
+            closeKeyboard();
+            button.setFocusable(true);
+            button.setFocusableInTouchMode(true);
+            button.requestFocus();
             auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
+                        toast.makeText(ForgotPasswordActivity.this, "", Toast.LENGTH_LONG);
+                        toast.cancel();
                         showToast("Email sended!");
                         lastTimeSent = System.currentTimeMillis();
                     } else {
                         showToast("Something went wrong.");
                     }
                     progressBar.setVisibility(View.GONE);
+                    button.setEnabled(true);
                 }
             });
 
@@ -98,6 +130,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         if (toast == null || toast.getView().getWindowVisibility() != View.VISIBLE) {
             toast = Toast.makeText(ForgotPasswordActivity.this, string, Toast.LENGTH_LONG);
             toast.show();
+        }
+    }
+
+    private void closeKeyboard(){
+        View view=this.getCurrentFocus();
+        if (view !=null){
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(),0);
         }
     }
 }

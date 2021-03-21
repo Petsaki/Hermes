@@ -3,14 +3,20 @@ package com.petsaki.epaketo;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,8 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class SingUpActivity extends AppCompatActivity {
 
-    private TextInputEditText usernameText;
-    private EditText passwordText, emailText;
+    private EditText usernameText,passwordText, emailText;
     private TextInputLayout usernametextInput, passwordtextInput, emailtextInput;
     private ProgressBar progressBar;
     private Toast toast;
@@ -43,7 +48,7 @@ public class SingUpActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         //Metablhtes antikimenwn
-        usernameText = (TextInputEditText) findViewById(R.id.act2_username_id);
+        usernameText = (EditText) findViewById(R.id.act2_username_id);
         passwordText = (EditText) findViewById(R.id.act2_password_id);
         emailText = (EditText) findViewById(R.id.act2_email_id);
         button=(Button)findViewById(R.id.act2_create_button_id);
@@ -110,7 +115,23 @@ public class SingUpActivity extends AppCompatActivity {
 
             }
         });
+        emailText.setOnEditorActionListener(editorListener);
+
+
     }
+
+    private TextView.OnEditorActionListener editorListener = new TextView.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            switch(actionId){
+                case EditorInfo
+                        .IME_ACTION_SEND:
+                    button.performClick();
+                    break;
+            }
+            return true;
+        }
+    };
 
     public void create_account_click(View view) {
 
@@ -149,9 +170,15 @@ public class SingUpActivity extends AppCompatActivity {
         }else{
             emailtextInput.setError(null);
         }
+            closeKeyboard();
+            button.setFocusable(true);
+            button.setFocusableInTouchMode(true);
+            button.requestFocus();
 
             progressBar.setVisibility(View.VISIBLE);
             button.setEnabled(false);
+
+
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(SingUpActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -187,6 +214,14 @@ public class SingUpActivity extends AppCompatActivity {
         if (toast == null || toast.getView().getWindowVisibility() != View.VISIBLE) {
             toast = Toast.makeText(SingUpActivity.this, string, Toast.LENGTH_LONG);
             toast.show();
+        }
+    }
+
+    private void closeKeyboard(){
+        View view=this.getCurrentFocus();
+        if (view !=null){
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(),0);
         }
     }
 
