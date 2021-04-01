@@ -140,4 +140,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(view.getWindowToken(),0);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, MainActivity.class);
+        this.overridePendingTransition(R.anim.corner_down_right,R.anim.slide_out_right);
+        finish();
+    }
 }

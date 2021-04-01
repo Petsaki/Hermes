@@ -44,13 +44,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user=mAuth.getCurrentUser();
 
         if (user!=null){
-            Intent intent = new Intent( MainActivity.this, ConnectedActivity.class);
+            Intent intent = new Intent( MainActivity.this, HomeActivity.class);
             startActivity(intent);
+            this.overridePendingTransition(R.anim.slide_in_left,R.anim.corner_up_left);
             finish();
         }
 /*  SharedPreference isos to xreiastw parakatw, den to sbhnw
@@ -135,9 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
                         //if(user.isEmailVerified()){
                         //setUserName(MainActivity.this,username);
-                            Intent intent = new Intent(MainActivity.this, ConnectedActivity.class);
-                            startActivity(intent);
-                            finish();
+                            connected();
                         //}else{
                         //user.sendEmailVerification();
                         showToast("Check your email to verify your account!");
@@ -159,11 +157,15 @@ public class MainActivity extends AppCompatActivity {
     public void sing_up_click(View view){
         Intent intent = new Intent( this, SingUpActivity.class);
         startActivity(intent);
+        this.overridePendingTransition(R.anim.slide_in_left,R.anim.corner_up_left);
+
     }
 
     public void forgot_password_click(View view){
         Intent intent = new Intent( this, ForgotPasswordActivity.class);
         startActivity(intent);
+        this.overridePendingTransition(R.anim.slide_in_left,R.anim.corner_up_left);
+
     }
 
 
@@ -210,9 +212,7 @@ public class MainActivity extends AppCompatActivity {
                             //To Toast einai gia delete,tha to kanw argotera
                             Toast.makeText(MainActivity.this,"signInWithCredential:success", Toast.LENGTH_LONG).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent( MainActivity.this, ConnectedActivity.class);
-                            startActivity(intent);
-                            finish();
+                            connected();
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -237,4 +237,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void connected(){
+        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+        startActivity(intent);
+        this.overridePendingTransition(R.anim.slide_in_left,R.anim.corner_up_left);
+        finish();
+    }
 }

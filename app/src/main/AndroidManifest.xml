@@ -12,14 +12,22 @@
         android:supportsRtl="true"
         android:theme="@style/SplashScreenTheme">
         <activity
+            android:name=".Settings_1_Activity"
+            android:label="@string/title_activity_settings_1_"
+            android:theme="@style/ActionBarOn"></activity>
+        <activity
+            android:name=".Settings_2_Activity"
+            android:label="@string/title_activity_settings_2_"
+            android:theme="@style/ActionBarOn" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".BaseActivity" />
+        <activity
             android:name=".ForgotPasswordActivity"
-            android:theme="@style/Theme.Epaketo"></activity>
+            android:theme="@style/Theme.Epaketo" />
         <activity
             android:name=".SingUpActivity"
-            android:theme="@style/Theme.Epaketo"></activity>
-        <activity
-            android:name=".ConnectedActivity"
-            ></activity>
+            android:theme="@style/Theme.Epaketo" />
+        <activity android:name=".ConnectedActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
