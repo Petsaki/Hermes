@@ -216,7 +216,8 @@ public class NotificationsFragment extends Fragment {
     public void logging_out(){
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
-        //getActivity().overridePendingTransition(R.anim.corner_down_right,R.anim.slide_out_right);
+        getActivity().overridePendingTransition(R.anim.corner_down_right,R.anim.slide_out_right);
         getActivity().finish();
+
     }
 }

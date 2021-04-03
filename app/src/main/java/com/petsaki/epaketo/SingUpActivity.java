@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
@@ -192,6 +193,13 @@ public class SingUpActivity extends AppCompatActivity {
                                         if (task.isSuccessful()) {
                                             showToast("User has been singed up successfully!"+mAuth.getCurrentUser());
                                             FirebaseAuth.getInstance().signOut();
+                                            Handler handler = new Handler();
+                                            handler.postDelayed(new Runnable() {
+                                                public void run() {
+                                                    onBackPressed();
+                                                }
+                                            }, 1000);
+
                                         } else {
                                             showToast("Failed to singed up. Try again!");
                                         }

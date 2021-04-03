@@ -39,9 +39,9 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void finish() {
-        super.finish();
-        this.overridePendingTransition(R.anim.corner_down_right,R.anim.slide_out_right);
-    }
+//    @Override
+//    public void finish() {
+//        super.finish();
+//        this.overridePendingTransition(R.anim.corner_down_right,R.anim.slide_out_right);
+//    }
 }
