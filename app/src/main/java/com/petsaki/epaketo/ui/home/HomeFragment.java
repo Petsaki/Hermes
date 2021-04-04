@@ -23,6 +23,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -60,6 +61,7 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
     LinearLayoutManager manager;
     int setscrollY,getscrollY;
     private HomeActivityViewModel homeActivityViewModel;
+    private SwipeRefreshLayout refreshLayout;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -69,6 +71,7 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
         HomeFragment=inflater.inflate(R.layout.fragment_home,container,false);
         toolbar=(Toolbar)HomeFragment.findViewById(R.id.toolbar);
         recyclerView = (RecyclerView)HomeFragment.findViewById(R.id.recyclerView);
+        refreshLayout = (SwipeRefreshLayout)HomeFragment.findViewById(R.id.swipeRefresh);
 
 //        homeActivityViewModel.getRecyler_main_Y().observe(getViewLifecycleOwner(), new Observer<Integer>() {
 //            @Override
@@ -85,16 +88,31 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
 //            }
 //        });
 
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshLayout.setRefreshing(true);
+                //recyclerView.setAdapter(null);
+                last_node="";
+                isMaxData=false;
+                //currentitems=tottalitems=scrolledoutitems=0;
+                getLastKeyFromFirebase();
+                resetRecycle();
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(manager);
+                getPaketa();
+
+            }
+
+        });
+
         progressBar=(ProgressBar)HomeFragment.findViewById(R.id.progressBar);
         getLastKeyFromFirebase();
 
-        manager = new LinearLayoutManager(getContext());
-        //SOS MALLON EDW LATHOS MARIEEEEEE KOITA EDW SE AYTH THN GRAMMH - Onclick tutorial
-        adapter=new HelperAdapter(getContext(),this::selectedPaketo);
+        resetRecycle();
 
 
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(manager);
+
         getPaketa();
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
@@ -227,7 +245,7 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
                     {
                         isMaxData=true;
                     }
-
+                    refreshLayout.setRefreshing(false);
                     progressBar.setVisibility(View.GONE);
 
                 }
@@ -243,6 +261,7 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
 
         else
         {
+            refreshLayout.setRefreshing(false);
             progressBar.setVisibility(View.GONE); //if data end
         }
     }
@@ -283,4 +302,12 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
 //
 //        homeActivityViewModel.setRecyler_main_Y(setscrollY);
 //    }
+
+    public void resetRecycle(){
+        manager = new LinearLayoutManager(getContext());
+        //SOS MALLON EDW LATHOS MARIEEEEEE KOITA EDW SE AYTH THN GRAMMH - Onclick tutorial
+        adapter=new HelperAdapter(getContext(),this::selectedPaketo);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(manager);
+    }
 }

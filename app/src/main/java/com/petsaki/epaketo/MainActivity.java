@@ -24,11 +24,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -194,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 //To Toast einai gia delete,tha to kanw argotera
-                Toast.makeText(MainActivity.this,"firebaseAuthWithGoogle:" + account.getId(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(MainActivity.this,"firebaseAuthWithGoogle:" + account.getId(), Toast.LENGTH_LONG).show();
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
                 Toast.makeText(MainActivity.this,"Google sign in failed", Toast.LENGTH_LONG).show();
@@ -210,8 +216,33 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             //To Toast einai gia delete,tha to kanw argotera
-                            Toast.makeText(MainActivity.this,"signInWithCredential:success", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this,"Sing in with google: success", Toast.LENGTH_LONG).show();
                             FirebaseUser user = mAuth.getCurrentUser();
+                            String userID=user.getUid();
+//                            Toast.makeText(MainActivity.this,"Uid: "+ userID, Toast.LENGTH_LONG).show();
+                            Query query = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
+//                            Toast.makeText(MainActivity.this,"Current user: "+ user, Toast.LENGTH_LONG).show();
+
+                            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (snapshot.exists()) {
+                                        // TODO: handle the case where the data already exists
+                                    }
+                                    else {
+                                        String username = user.getDisplayName();
+                                        String email = user.getEmail();
+                                        User writeUser = new User(username, email);
+                                        FirebaseDatabase.getInstance().getReference("Users")
+                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(writeUser);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
                             connected();
 
                         } else {

@@ -17,6 +17,8 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -36,9 +38,11 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
     private TextView textview;
 //    private MapView mapView;
     private Polyline polyline;
+    private Button akyrwshButton,epiloghButton;
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    FetchData fetchDataPaketo;
 
 //    private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
 
@@ -50,6 +54,8 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
         textview = findViewById(R.id.textView6);
         tabLayout= findViewById(R.id.tabLayout2);
         viewPager = findViewById(R.id.viewPager);
+        akyrwshButton=findViewById(R.id.button3);
+        epiloghButton=findViewById(R.id.button4);
         getTabs();
 
 
@@ -63,9 +69,20 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
         Intent intent = getIntent();
         if(intent.getExtras()!= null){
              FetchData fetchData = (FetchData) intent.getSerializableExtra("data");
-
+             fetchDataPaketo = fetchData;
              textview.setText(fetchData.getOnoma_etairias());
         }
+
+
+        //Pernaw to paketo sta fragments mou
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("data",fetchDataPaketo);
+        // set Fragmentclass Arguments
+        PerigrafhFragments perigrafhFragments = new PerigrafhFragments();
+        perigrafhFragments.setArguments(bundle);
+        XarthsFragment xarthsFragment = new XarthsFragment();
+        xarthsFragment.setArguments(bundle);
+
 
         //Google maps things :/
 //        Bundle mapViewBundle = null;
@@ -76,6 +93,7 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
 //        mapView.onCreate(mapViewBundle);
 //        mapView.getMapAsync(this);
 
+
     }
 
     public void getTabs(){
@@ -84,8 +102,8 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-                viewPagerAdapter.addFragment(XarthsFragment.getInstance(),"XARTHS");
-                viewPagerAdapter.addFragment(PerigrafhFragments.getInstance(),"PeRiGrAfH");
+                viewPagerAdapter.addFragment(XarthsFragment.getInstance(),"Χάρτης");
+                viewPagerAdapter.addFragment(PerigrafhFragments.getInstance(),"Περιγραφή");
                 viewPager.setAdapter(viewPagerAdapter);
                 tabLayout.setupWithViewPager(viewPager);
             }
@@ -210,5 +228,10 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
 //        return p1;
 //
 //    }
+
+
+    public void akyrwshFun(View view){
+        onBackPressed();
+    }
 
 }

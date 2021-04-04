@@ -198,7 +198,7 @@ public class SingUpActivity extends AppCompatActivity {
                                                 public void run() {
                                                     onBackPressed();
                                                 }
-                                            }, 1000);
+                                            }, 1250);
 
                                         } else {
                                             showToast("Failed to singed up. Try again!");

@@ -2,6 +2,7 @@ package com.petsaki.epaketo;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -27,6 +28,7 @@ import java.util.List;
 public class XarthsFragment extends Fragment implements OnMapReadyCallback {
 
     private MapView mapView;
+    private String odos_magaziou,odos_paralhpth;
 
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
 
@@ -53,6 +55,12 @@ public class XarthsFragment extends Fragment implements OnMapReadyCallback {
         mapView=(MapView)view.findViewById(R.id.mapView);
         mapView.onCreate(mapViewBundle);
         mapView.getMapAsync(this);
+        Intent intent = getActivity().getIntent();
+        if(intent.getExtras()!= null){
+            FetchData fetchData = (FetchData) intent.getSerializableExtra("data");
+            odos_magaziou = fetchData.getOdos_magaziou();
+            odos_paralhpth = fetchData.getOdos();
+        }
         return view;
     }
 
@@ -71,7 +79,7 @@ public class XarthsFragment extends Fragment implements OnMapReadyCallback {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        LatLng address = getLocationFromAddress(getActivity(), "Κολοκοτρώνη 20, Τριάδι, 57001");
+        LatLng address = getLocationFromAddress(getActivity(), odos_paralhpth);
         googleMap.addMarker(new MarkerOptions().position(address).title("Παράδωση"));
 
         LatLng address2 = getLocationFromAddress(getActivity(), "Εγνατία, Θεσσαλονίκη");
