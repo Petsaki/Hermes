@@ -32,14 +32,19 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.petsaki.epaketo.FetchData;
 import com.petsaki.epaketo.HelperAdapter;
+import com.petsaki.epaketo.HomeActivity;
 import com.petsaki.epaketo.HomeActivityViewModel;
+import com.petsaki.epaketo.ItemActivity;
+import com.petsaki.epaketo.MainActivity;
+import com.petsaki.epaketo.MapsActivity;
 import com.petsaki.epaketo.R;
 import com.petsaki.epaketo.Settings_1_Activity;
+import com.petsaki.epaketo.Settings_2_Activity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements HelperAdapter.SelectedPaketo {
 
     View HomeFragment;
     private Toolbar toolbar;
@@ -84,7 +89,8 @@ public class HomeFragment extends Fragment {
         getLastKeyFromFirebase();
 
         manager = new LinearLayoutManager(getContext());
-        adapter=new HelperAdapter(getContext());
+        //SOS MALLON EDW LATHOS MARIEEEEEE KOITA EDW SE AYTH THN GRAMMH - Onclick tutorial
+        adapter=new HelperAdapter(getContext(),this::selectedPaketo);
 
 
         recyclerView.setAdapter(adapter);
@@ -260,6 +266,12 @@ public class HomeFragment extends Fragment {
         });
 
 
+    }
+
+    @Override
+    public void selectedPaketo(FetchData fetchData) {
+            startActivity(new Intent(getActivity(), ItemActivity.class).putExtra("data",fetchData));
+            getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.corner_up_left);
     }
 
 //    @Override

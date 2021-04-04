@@ -12,19 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HelperAdapter extends RecyclerView.Adapter<HelperAdapter.NewViewHolder>
-{
-    List<FetchData> paketaList;
-    Context context;
+public class HelperAdapter extends RecyclerView.Adapter<HelperAdapter.NewViewHolder>{
+    static List<FetchData> paketaList;
+    private Context context;
+    static SelectedPaketo selectedPaketo;
 
-    public HelperAdapter( Context context)
-    {
+    public HelperAdapter( Context context, SelectedPaketo selectedPaketo){
         this.paketaList = new ArrayList<>();
         this.context = context;
+        this.selectedPaketo = selectedPaketo;
     }
 
-    public void addAll(List<FetchData> newFetchData)
-    {
+    public void addAll(List<FetchData> newFetchData){
         int initsize=paketaList.size();
         paketaList.addAll(newFetchData);
         notifyItemRangeChanged(initsize,newFetchData.size());
@@ -42,7 +41,12 @@ public class HelperAdapter extends RecyclerView.Adapter<HelperAdapter.NewViewHol
             odos_magaziou=itemView.findViewById(R.id.odos_magaziou);
             megethos=itemView.findViewById(R.id.megethos);
 
-
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectedPaketo.selectedPaketo(paketaList.get(getAdapterPosition()));
+                }
+            });
         }
     }
 
@@ -67,5 +71,8 @@ public class HelperAdapter extends RecyclerView.Adapter<HelperAdapter.NewViewHol
         return paketaList.size();
     }
 
+    public interface SelectedPaketo{
+        void selectedPaketo(FetchData fetchData);
+    }
 
 }

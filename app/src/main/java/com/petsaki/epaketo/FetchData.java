@@ -1,8 +1,9 @@
 package com.petsaki.epaketo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class FetchData {
+public class FetchData implements Serializable {
 
     String id,odos;
     String baros;
