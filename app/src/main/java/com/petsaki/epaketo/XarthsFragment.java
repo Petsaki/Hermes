@@ -79,10 +79,16 @@ public class XarthsFragment extends Fragment implements OnMapReadyCallback {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+
+        //ΜΑΡΙΕ ΒΓΑΛΕ ΤΟ ΙF ΑΠΟ ΕΔΩ!!!
         LatLng address = getLocationFromAddress(getActivity(), odos_paralhpth);
+        if (address==null){
+            address= getLocationFromAddress(getActivity(), "Κολοκοτρώνη 20, Τριάδι");
+        }
         googleMap.addMarker(new MarkerOptions().position(address).title("Παράδωση"));
 
         LatLng address2 = getLocationFromAddress(getActivity(), "Εγνατία, Θεσσαλονίκη");
+
         googleMap.addMarker(new MarkerOptions().position(address2).title("Πακέτο"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(address2));
         googleMap.animateCamera(CameraUpdateFactory.zoomIn());

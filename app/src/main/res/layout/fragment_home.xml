@@ -24,7 +24,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:menu="@menu/toolbar_2_menu"
-            app:title="ΠΑΚΕΤΑ"
+            app:title="Πακέτα"
             app:titleTextColor="#FFFFFF" />
 
     </com.google.android.material.appbar.AppBarLayout>

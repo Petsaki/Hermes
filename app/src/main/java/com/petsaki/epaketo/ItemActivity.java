@@ -9,6 +9,7 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.Manifest;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,11 +17,13 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -29,20 +32,37 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
 public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCallback {
 
-    private TextView textview;
 //    private MapView mapView;
     private Polyline polyline;
     private Button akyrwshButton,epiloghButton;
 
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    private DatabaseReference reference;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     FetchData fetchDataPaketo;
+    private String paketoHmer;
+    boolean checking;
+    private Toast toast;
+
+    private Button buttonA,buttonE;
 
 //    private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
 
@@ -50,27 +70,20 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
-
-        textview = findViewById(R.id.textView6);
+        mAuth = FirebaseAuth.getInstance();
+        user=mAuth.getCurrentUser();
         tabLayout= findViewById(R.id.tabLayout2);
         viewPager = findViewById(R.id.viewPager);
         akyrwshButton=findViewById(R.id.button3);
         epiloghButton=findViewById(R.id.button4);
-        getTabs();
-
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.outline_arrow_back_24);
-        }
 
         //Trabaw ta dedomena apo to antikeimeno pou pathsa
         Intent intent = getIntent();
         if(intent.getExtras()!= null){
-             FetchData fetchData = (FetchData) intent.getSerializableExtra("data");
-             fetchDataPaketo = fetchData;
-             textview.setText(fetchData.getOnoma_etairias());
+            FetchData fetchData = (FetchData) intent.getSerializableExtra("data");
+            fetchDataPaketo = fetchData;
+            paketoHmer=fetchData.getHmerominia();
+
         }
 
 
@@ -83,6 +96,17 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
         XarthsFragment xarthsFragment = new XarthsFragment();
         xarthsFragment.setArguments(bundle);
 
+
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.outline_arrow_back_24);
+        }
+
+
+
+        getTabs();
 
         //Google maps things :/
 //        Bundle mapViewBundle = null;
@@ -233,5 +257,113 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
     public void akyrwshFun(View view){
         onBackPressed();
     }
+
+    public void epiloghFun(View view){
+        epiloghButton.setEnabled(false);
+//        reference = FirebaseDatabase.getInstance().getReference().child("Paketa").child(paketoID);
+//        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.getValue()==null){
+//                    Toast.makeText(ItemActivity.this, "Den Yparxeis gamhmeno paketo", Toast.LENGTH_SHORT).show();
+//                }else{
+//                    Toast.makeText(ItemActivity.this, "Yparxeis kai se thelw", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        Query query = ref.child("Paketa").orderByChild("hmerominia").equalTo(paketoHmer);
+        checking=true;
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                    if (ds.getValue()!=null){
+                        String keyPaketou=ds.getKey();
+                        Toast.makeText(ItemActivity.this, "Yparxeis kai se thelw: "+keyPaketou, Toast.LENGTH_SHORT).show();
+
+
+//                        String userID=user.getUid();
+//                        Query query = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
+
+                        DatabaseReference frompath = FirebaseDatabase.getInstance().getReference().child("Paketa").child(keyPaketou);
+                        DatabaseReference topath = FirebaseDatabase.getInstance().getReference().child("Users")
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("ProsParadwsh").child(keyPaketou);
+
+                        movePaketo(frompath,topath);
+//                        FirebaseDatabase.getInstance().getReference("Users")
+//                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("ProsParadwsh")
+//                                .setValue(dataSnapshot.getValue());
+
+
+//                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<Void> task) {
+//                                if (task.isSuccessful()) {
+//                                    showToast("User has been singed up successfully!");
+//
+//                                } else {
+//                                    showToast("Failed to singed up. Try again!");
+//                                }
+////                                progressBar.setVisibility(View.GONE);
+//                            }
+//                        });
+
+
+//                        ds.getRef().removeValue();
+                        checking=false;
+                    }
+                }
+                if(checking){
+                    Toast.makeText(ItemActivity.this, "Φαίνεται ότι καποιος έχει πάρει ήδη το πακέτο αυτό.", Toast.LENGTH_SHORT).show();
+                    epiloghButton.setEnabled(true);
+                }
+          }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        Toast.makeText(this, "ID: "+ paketoHmer, Toast.LENGTH_SHORT).show();
+    }
+
+    public void showToast(String string) {
+        if (toast == null || toast.getView().getWindowVisibility() != View.VISIBLE) {
+            toast = Toast.makeText(ItemActivity.this, string, Toast.LENGTH_LONG);
+            toast.show();
+        }
+    }
+
+    private void movePaketo(final DatabaseReference fromPath, final DatabaseReference toPath) {
+        fromPath.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                toPath.setValue(dataSnapshot.getValue(), new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError firebaseError, DatabaseReference firebase) {
+                        if (firebaseError != null) {
+                            System.out.println("Copy failed");
+                        } else {
+                            fromPath.removeValue();
+
+                        }
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
 
 }

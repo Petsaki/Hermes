@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ItemActivity">
+    tools:context=".Item_2_Activity">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout2"
@@ -49,26 +49,12 @@
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="160dp"
+        android:layout_width="220dp"
         android:layout_height="55dp"
-        android:onClick="akyrwshFun"
-        android:text="Ακύρωση"
+        android:onClick="oloklhrwshFun"
+        android:text="Ολοκλήρωση"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.08"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9925" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="160dp"
-        android:layout_height="55dp"
-        android:onClick="epiloghFun"
-        android:text="Επιλογή"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/view"
-        app:layout_constraintHorizontal_bias="0.92"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.9925" />
