@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,6 +59,8 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
     LinearLayoutManager manager;
 
     private SwipeRefreshLayout refreshLayout;
+    private ImageView emptyBox;
+    private TextView emptyView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -71,6 +74,8 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
         recyclerView = (RecyclerView)DashboardFragment.findViewById(R.id.recyclerView);
         refreshLayout = (SwipeRefreshLayout)DashboardFragment.findViewById(R.id.swipeRefresh);
         progressBar=(ProgressBar)DashboardFragment.findViewById(R.id.progressBar);
+        emptyBox=(ImageView)DashboardFragment.findViewById(R.id.emptyBox);
+        emptyView=(TextView)DashboardFragment.findViewById(R.id.emptyView);
 
 //        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
 //            @Override
@@ -78,7 +83,6 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
 //                textView.setText(s);
 //            }
 //        });
-
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -89,8 +93,8 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
                 //currentitems=tottalitems=scrolledoutitems=0;
                 getLastKeyFromFirebase();
                 resetRecycle();
-                recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(manager);
+//                recyclerView.setAdapter(adapter);
+//                recyclerView.setLayoutManager(manager);
                 getPaketa();
 
             }
@@ -102,6 +106,8 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
 
 
         getPaketa();
+
+
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
@@ -201,6 +207,14 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
                         adapter.addAll(newFetchData);
                         adapter.notifyDataSetChanged();
 
+                        if (recyclerView.getAdapter().getItemCount()==0){
+                            emptyBox.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(View.VISIBLE);
+                        }else{
+                            emptyBox.setVisibility(View.GONE);
+                            emptyView.setVisibility(View.GONE);
+                        }
+
 
                     }
                     else
@@ -219,6 +233,7 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
                 }
             });
 
+
         }
 
         else
@@ -226,6 +241,8 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
             refreshLayout.setRefreshing(false);
             progressBar.setVisibility(View.GONE); //if data end
         }
+
+
     }
 
     private void getLastKeyFromFirebase(){
@@ -261,5 +278,6 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
         adapter=new HelperAdapter(getContext(),this::selectedPaketo);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(manager);
+        
     }
 }

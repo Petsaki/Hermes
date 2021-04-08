@@ -98,8 +98,8 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
                 //currentitems=tottalitems=scrolledoutitems=0;
                 getLastKeyFromFirebase();
                 resetRecycle();
-                recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(manager);
+//                recyclerView.setAdapter(adapter);
+//                recyclerView.setLayoutManager(manager);
                 getPaketa();
 
             }
@@ -236,6 +236,7 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
                         }
 //                         Toast.makeText(getContext(), "last_node = "+last_node, Toast.LENGTH_SHORT).show();
 
+                        //EDW MALLON GINETE H TROLLIA ME TOUS XARTES -.-
                         adapter.addAll(newFetchData);
                         adapter.notifyDataSetChanged();
 

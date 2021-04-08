@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@drawable/item_layout"
-    android:layout_margin="8dp">
+    app:cardCornerRadius="5dp"
+    android:layout_margin="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.70"
-            android:layout_margin="2dp"
             map:liteMode="true"
             map:mapType="normal"
             map:cameraZoom="11"/>
@@ -45,26 +41,25 @@
                 android:id="@+id/odos_magaziou"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:drawableLeft="@drawable/icon_packages_tik"
+                android:drawableLeft="@drawable/icons8_package_48"
                 android:text="123"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/odos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/icon_home"
+                android:drawableLeft="@drawable/icons8_house_48"
                 android:text="123"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="14sp" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/black"
-                app:layout_constraintVertical_bias="0.845" />
+                android:layout_height="1dp"
+                android:background="@color/grey"
+                app:layout_constraintVertical_bias="1" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -74,23 +69,24 @@
                 <TextView
                     android:id="@+id/baros"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:drawableLeft="@drawable/icons8_weight_kg_48"
                     android:text="123"
                     android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/megethos"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:drawableLeft="@drawable/icons8_page_size_48"
                     android:text="123"
                     android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -39,11 +39,11 @@
             android:theme="@style/ActionBarOn" />
         <activity
             android:name=".Settings_1_Activity"
-            android:label="@string/title_activity_settings_1_"
+            android:label="Φίλτρα"
             android:theme="@style/ActionBarOn" />
         <activity
             android:name=".Settings_2_Activity"
-            android:label="@string/title_activity_settings_2_"
+            android:label="Φίλτρα"
             android:theme="@style/ActionBarOn" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".BaseActivity" />

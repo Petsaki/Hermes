@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -20,7 +22,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
@@ -29,6 +34,10 @@ public class XarthsFragment extends Fragment implements OnMapReadyCallback {
 
     private MapView mapView;
     private String odos_magaziou,odos_paralhpth;
+    private int height = 100;
+    private int width = 100;
+    Bitmap smallMarker2;
+    Bitmap smallMarker;
 
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
 
@@ -61,8 +70,18 @@ public class XarthsFragment extends Fragment implements OnMapReadyCallback {
             odos_magaziou = fetchData.getOdos_magaziou();
             odos_paralhpth = fetchData.getOdos();
         }
+
+        BitmapDrawable bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.icons8_package_48);
+        Bitmap b = bitmapdraw.getBitmap();
+        smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+
+        BitmapDrawable bitmapdraw2 = (BitmapDrawable)getResources().getDrawable(R.drawable.icons8_house_48);
+        Bitmap b2 = bitmapdraw2.getBitmap();
+        smallMarker2 = Bitmap.createScaledBitmap(b2, width, height, false);
+
         return view;
     }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -82,18 +101,25 @@ public class XarthsFragment extends Fragment implements OnMapReadyCallback {
 
         //ΜΑΡΙΕ ΒΓΑΛΕ ΤΟ ΙF ΑΠΟ ΕΔΩ!!!
         LatLng address = getLocationFromAddress(getActivity(), odos_paralhpth);
-        if (address==null){
-            address= getLocationFromAddress(getActivity(), "Κολοκοτρώνη 20, Τριάδι");
-        }
-        googleMap.addMarker(new MarkerOptions().position(address).title("Παράδωση"));
+//        if (address==null){
+//            address= getLocationFromAddress(getActivity(), "Κολοκοτρώνη 20, Τριάδι");
+//        }
+        googleMap.addMarker(new MarkerOptions().position(address).title("Παράδωση").icon(BitmapDescriptorFactory.fromBitmap(smallMarker2)));
 
-        LatLng address2 = getLocationFromAddress(getActivity(), "Εγνατία, Θεσσαλονίκη");
+        LatLng address2 = getLocationFromAddress(getActivity(), odos_magaziou);
 
-        googleMap.addMarker(new MarkerOptions().position(address2).title("Πακέτο"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(address2));
-        googleMap.animateCamera(CameraUpdateFactory.zoomIn());
+        googleMap.addMarker(new MarkerOptions().position(address2).title("Πακέτο").icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        builder.include(address);
+        builder.include(address2);
+        LatLngBounds bounds = builder.build();
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 200));
+
+//        googleMap.moveCamera(CameraUpdateFactory.newLatLng(address2));
+//        googleMap.animateCamera(CameraUpdateFactory.zoomIn());
         // Zoom out to zoom level 10, animating with a duration of 2 seconds.
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+//        googleMap.animateCamera(CameraUpdateFactory.zoomTo((float) 10.5), 2000, null);
         googleMap.setMyLocationEnabled(true);
     }
 

@@ -1,77 +1,39 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory app:title="@string/messages_header"
-        app:iconSpaceReserved="false">
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="Ταξινόμηση ">
 
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true"
+        <ListPreference
+
+            app:entries="@array/hmerominia_entries"
+            app:entryValues="@array/hmerominia_values"
             app:iconSpaceReserved="false"
-            />
-
-        <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
+            app:key="hmerominia2"
+            app:title="Ημερομηνία"
             app:useSimpleSummaryProvider="true"
-            app:iconSpaceReserved="false"/>
+            android:defaultValue="1"/>
 
-    </PreferenceCategory>
+        <PreferenceCategory android:title="Φίλτρα"
+            app:iconSpaceReserved="false">
 
-    <PreferenceCategory app:title="@string/sync_header"
-        app:iconSpaceReserved="false">
-
-        <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title"
-            app:iconSpaceReserved="false"/>
-
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title"
-            app:iconSpaceReserved="false"/>
-
-    </PreferenceCategory>
-    <PreferenceCategory app:title="@string/messages_header"
-        app:iconSpaceReserved="false">
-
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true"
-            app:iconSpaceReserved="false"/>
-
-        <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
-            app:useSimpleSummaryProvider="true"
-            app:iconSpaceReserved="false"/>
-
-    </PreferenceCategory>
-    <PreferenceCategory app:title="@string/sync_header"
-        app:iconSpaceReserved="false">
-
-        <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title"
-            app:iconSpaceReserved="false"/>
-
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title"
-            app:iconSpaceReserved="false"/>
+            <ListPreference
+                app:defaultValue="1"
+                app:entries="@array/megethos_entries"
+                app:entryValues="@array/megethos_values"
+                app:iconSpaceReserved="false"
+                app:key="megethos2"
+                app:title="Μέγεθος"
+                app:useSimpleSummaryProvider="true" />
+            <EditTextPreference
+                app:iconSpaceReserved="false"
+                app:key="baros2"
+                app:title="Βάρος"
+                app:useSimpleSummaryProvider="true"
+                android:inputType="numberDecimal"
+                android:digits="0123456789."/>
+        </PreferenceCategory>
 
     </PreferenceCategory>
 
