@@ -3,6 +3,7 @@ package com.petsaki.epaketo.ui.home;
 import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -65,6 +66,7 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
     int setscrollY,getscrollY;
     private HomeActivityViewModel homeActivityViewModel;
     private SwipeRefreshLayout refreshLayout;
+    private Parcelable savedRecyclerLayoutState;
 
 
     @Override
@@ -400,5 +402,9 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
             // list to our adapter class.
             adapter.filterList(filteredlist);
         }
+    }
+
+    public void setSavedRecyclerLayoutState(Parcelable savedRecyclerLayoutState) {
+        this.savedRecyclerLayoutState = savedRecyclerLayoutState;
     }
 }

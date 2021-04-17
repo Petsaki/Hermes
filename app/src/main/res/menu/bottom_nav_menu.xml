@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/icon_home"
-        android:title="@string/title_home" />
+        android:icon="@drawable/icons8_package_delivery_logistics_48"
+        android:title="Πακέτα" />
 
     <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/icon_packages_tik"
-        android:title="@string/title_dashboard" />
+        android:icon="@drawable/icons8_in_transit_48"
+        android:title="Προς Παράδωση" />
 
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@drawable/icon_profile"
-        android:title="@string/title_notifications" />
+        android:icon="@drawable/icons8_male_user_48"
+        android:title="Λογαριασμός" />
 
 </menu>

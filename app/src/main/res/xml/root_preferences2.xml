@@ -18,14 +18,13 @@
         <PreferenceCategory android:title="Φίλτρα"
             app:iconSpaceReserved="false">
 
-            <ListPreference
-                app:defaultValue="1"
-                app:entries="@array/megethos_entries"
-                app:entryValues="@array/megethos_values"
-                app:iconSpaceReserved="false"
-                app:key="megethos2"
-                app:title="Μέγεθος"
-                app:useSimpleSummaryProvider="true" />
+            <MultiSelectListPreference
+                android:defaultValue="@array/megethos_entries"
+                android:entries="@array/megethos_entries"
+                android:entryValues="@array/megethos_values"
+                android:key="megethos2"
+                android:title="Μέγεθος"
+                app:iconSpaceReserved="false" />
             <EditTextPreference
                 app:iconSpaceReserved="false"
                 app:key="baros2"
@@ -33,6 +32,13 @@
                 app:useSimpleSummaryProvider="true"
                 android:inputType="numberDecimal"
                 android:digits="0123456789."/>
+            <MultiSelectListPreference
+                android:defaultValue="@array/etaireia_entries"
+                android:entries="@array/etaireia_entries"
+                android:entryValues="@array/etaireia_values"
+                android:key="etaireia2"
+                android:title="Εταιρία"
+                app:iconSpaceReserved="false" />
         </PreferenceCategory>
 
     </PreferenceCategory>

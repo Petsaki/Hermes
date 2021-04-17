@@ -50,7 +50,6 @@ public class NotificationsFragment extends Fragment {
     private TextView usernametext,emailtext;
     private NotificationsViewModel notificationsViewModel;
     private HomeActivityViewModel homeActivityViewModel,numberViewModel;
-    private SwipeRefreshLayout refreshLayout;
     private TextView testview;
     int number = 0;
 
@@ -68,46 +67,12 @@ public class NotificationsFragment extends Fragment {
         notificationsViewModel = new ViewModelProvider(this).get(NotificationsViewModel.class);
         homeActivityViewModel = new ViewModelProvider(getActivity()).get(HomeActivityViewModel.class);
         //View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-        final TextView textView = view.findViewById(R.id.text_notifications);
         testview=(TextView)view.findViewById(R.id.testtext);
-        refreshLayout=(SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
         numberViewModel = new ViewModelProvider(getActivity()).get(HomeActivityViewModel.class);
         //testview.setText(String.valueOf(numberViewModel.getNumber()));
         loginuser();
 
 
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-
-        });
-        homeActivityViewModel.getNumber().observe(getViewLifecycleOwner(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer s) {
-                testview.setText(String.valueOf(s));
-
-            }
-        });
-
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshLayout.setRefreshing(true);
-                //loginuser();
-                numberViewModel.addNumber();
-                homeActivityViewModel.getNumber().observe(getViewLifecycleOwner(), new Observer<Integer>() {
-                    @Override
-                    public void onChanged(Integer s) {
-                        testview.setText(String.valueOf(s));
-
-                    }
-                });
-                refreshLayout.setRefreshing(false);
-            }
-
-        });
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,11 +115,11 @@ public class NotificationsFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        //mainactivityViewModel.setmNumber(5);
-    }
+//    @Override
+//    public void onSaveInstanceState(@NonNull Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        //mainactivityViewModel.setmNumber(5);
+//    }
     //@Override
     //public void onDestroyView() {
     //    super.onDestroyView();

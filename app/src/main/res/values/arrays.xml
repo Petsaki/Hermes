@@ -11,7 +11,6 @@
     </string-array>
 
     <string-array name="megethos_entries">
-        <item>Όλα</item>
         <item>Πολύ μικρό</item>
         <item>Μικρό</item>
         <item>Μεσαίο</item>
@@ -25,7 +24,6 @@
         <item>3</item>
         <item>4</item>
         <item>5</item>
-        <item>6</item>
     </string-array>
 
     <string-array name="etaireia_entries">

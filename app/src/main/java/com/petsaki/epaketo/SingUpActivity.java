@@ -49,13 +49,14 @@ public class SingUpActivity extends AppCompatActivity {
 
         //Metablhtes antikimenwn
         usernameText = (EditText) findViewById(R.id.act2_username_id);
-        passwordText = (EditText) findViewById(R.id.act2_password_id);
         emailText = (EditText) findViewById(R.id.act2_email_id);
+        passwordText = (EditText) findViewById(R.id.act2_password_id);
+
         button=(Button)findViewById(R.id.act2_create_button_id);
 
         usernametextInput = (TextInputLayout) findViewById(R.id.act2_text_input_username_id);
-        passwordtextInput = (TextInputLayout) findViewById(R.id.act2_text_input_password_id);
         emailtextInput = (TextInputLayout) findViewById(R.id.forgot_text_input_email_id);
+        passwordtextInput = (TextInputLayout) findViewById(R.id.act2_text_input_password_id);
 
         progressBar=(ProgressBar)findViewById(R.id.act2_progressBar_id);
 
@@ -69,6 +70,25 @@ public class SingUpActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length()>0){
                     usernametextInput.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        emailText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length()>0){
+                    emailtextInput.setError(null);
                 }
             }
 
@@ -97,36 +117,20 @@ public class SingUpActivity extends AppCompatActivity {
             }
         });
 
-        emailText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length()>0){
-                    emailtextInput.setError(null);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        emailText.setOnEditorActionListener(editorListener);
+        passwordText.setOnEditorActionListener(editorActionListener);
 
 
     }
 
-    private TextView.OnEditorActionListener editorListener = new TextView.OnEditorActionListener() {
+    private TextView.OnEditorActionListener editorActionListener = new TextView.OnEditorActionListener(){
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             switch(actionId){
                 case EditorInfo
                         .IME_ACTION_SEND:
                     button.performClick();
+                    closeKeyboard();
                     break;
             }
             return true;
@@ -136,8 +140,9 @@ public class SingUpActivity extends AppCompatActivity {
     public void create_account_click(View view) {
 
         String username = usernameText.getText().toString().trim();
-        String password = passwordText.getText().toString().trim();
         String email = emailText.getText().toString().trim();
+        String password = passwordText.getText().toString().trim();
+
 
         if (username.isEmpty()) {
             usernametextInput.setError("Can't be empty");
@@ -145,6 +150,18 @@ public class SingUpActivity extends AppCompatActivity {
             return;
         } else {
             usernametextInput.setError(null);
+        }
+
+        if (email.isEmpty()){
+            emailtextInput.setError("Can't be empty");
+            emailtextInput.requestFocus();
+            return;
+        }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            emailtextInput.setError("Wrong mail pattern!");
+            emailtextInput.requestFocus();
+            return;
+        }else{
+            emailtextInput.setError(null);
         }
 
         if (password.isEmpty()) {
@@ -159,17 +176,7 @@ public class SingUpActivity extends AppCompatActivity {
             passwordtextInput.setError(null);
         }
 
-        if (email.isEmpty()){
-            emailtextInput.setError("Can't be empty");
-            emailtextInput.requestFocus();
-            return;
-        }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            emailtextInput.setError("Wrong mail pattern!");
-            emailtextInput.requestFocus();
-            return;
-        }else{
-            emailtextInput.setError(null);
-        }
+
             closeKeyboard();
             button.setFocusable(true);
             button.setFocusableInTouchMode(true);

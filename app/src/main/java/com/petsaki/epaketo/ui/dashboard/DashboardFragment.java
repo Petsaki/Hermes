@@ -2,6 +2,7 @@ package com.petsaki.epaketo.ui.dashboard;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -104,8 +105,13 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
         getLastKeyFromFirebase();
         resetRecycle();
 
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                getPaketa();
+            }
+        }, 280);
 
-        getPaketa();
 
 
 
@@ -166,20 +172,21 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
         {
             Query query;
 
-            if (TextUtils.isEmpty(last_node))
+            if (TextUtils.isEmpty(last_node)) {
                 query = FirebaseDatabase.getInstance().getReference()
                         .child("Users")
                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("ProsParadwsh")
                         .orderByChild("hmerominia")
                         .limitToFirst(ITEM_LOAD_COUNT);
-            else
+
+            }else {
                 query = FirebaseDatabase.getInstance().getReference()
                         .child("Users")
                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("ProsParadwsh")
                         .orderByChild("hmerominia")
                         .startAt(last_node)
                         .limitToFirst(ITEM_LOAD_COUNT);
-
+            }
             query.addListenerForSingleValueEvent(new ValueEventListener()
             {
                 @Override
