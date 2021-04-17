@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,14 +67,20 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
     private SwipeRefreshLayout refreshLayout;
 
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         homeActivityViewModel = new ViewModelProvider(getActivity()).get(HomeActivityViewModel.class);
         HomeFragment=inflater.inflate(R.layout.fragment_home,container,false);
         toolbar=(Toolbar)HomeFragment.findViewById(R.id.toolbar);
         recyclerView = (RecyclerView)HomeFragment.findViewById(R.id.recyclerView);
         refreshLayout = (SwipeRefreshLayout)HomeFragment.findViewById(R.id.swipeRefresh);
+
 
 //        homeActivityViewModel.getRecyler_main_Y().observe(getViewLifecycleOwner(), new Observer<Integer>() {
 //            @Override
@@ -159,9 +168,16 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
                         startActivity(intent);
                         getActivity().overridePendingTransition(R.anim.slide_up,R.anim.dont_move);
                         break;
+                    case R.id.action_search:
+                        Toast.makeText(getActivity(), "Search!",
+                                Toast.LENGTH_LONG).show();
                 }
                 return false;
             }
+
+
+
+
         });
 
 
@@ -220,16 +236,16 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
                     if(snapshot.hasChildren())
                     {
 
-                        List<FetchData> newFetchData = new ArrayList<>();
+                        fetchData = new ArrayList<>();
                         for (DataSnapshot ds : snapshot.getChildren())
                         {
-                            newFetchData.add(ds.getValue(FetchData.class));
+                            fetchData.add(ds.getValue(FetchData.class));
                         }
 
-                        last_node =newFetchData.get(newFetchData.size()-1).getHmerominia();
+                        last_node =fetchData.get(fetchData.size()-1).getHmerominia();
 //                        Toast.makeText(getContext(), "last_node = "+ last_node, Toast.LENGTH_SHORT).show();
                         if(!last_node.equals(last_key)) {
-                            newFetchData.remove(newFetchData.size() - 1);
+                            fetchData.remove(fetchData.size() - 1);
                         }else {
                             last_node = "end";
                             //Toast.makeText(getContext(), "Bghkaaa", Toast.LENGTH_SHORT).show();
@@ -237,7 +253,7 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
 //                         Toast.makeText(getContext(), "last_node = "+last_node, Toast.LENGTH_SHORT).show();
 
                         //EDW MALLON GINETE H TROLLIA ME TOUS XARTES -.-
-                        adapter.addAll(newFetchData);
+                        adapter.addAll(fetchData);
                         adapter.notifyDataSetChanged();
 
 
@@ -310,5 +326,79 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
         adapter=new HelperAdapter(getContext(),this::selectedPaketo);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(manager);
+    }
+
+//    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
+//        MenuInflater inflater= getActivity().getMenuInflater();
+//        inflater.inflate(R.menu.toolbar_2_menu,menu);
+//
+//        MenuItem searchItem = menu.findItem(R.id.action_search);
+//        SearchView searchView = (SearchView) searchItem.getActionView();
+//        Toast.makeText(getActivity(), "eeeeep", Toast.LENGTH_SHORT).show();
+//
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                filter(newText);
+//                return false;
+//            }
+//        });
+//        return true;
+//    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.toolbar_2_menu,menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        Toast.makeText(getActivity(), "eeeeep", Toast.LENGTH_SHORT).show();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
+        });
+
+    }
+
+
+    private void filter(String text) {
+        // creating a new array list to filter our data.
+        ArrayList<FetchData> filteredlist = new ArrayList<>();
+        Toast.makeText(getActivity(), "GEIA SOY", Toast.LENGTH_SHORT).show();
+
+        // running a for loop to compare elements.
+        for (FetchData item : fetchData) {
+            // checking if the entered string matched with any item of our recycler view.
+            if (item.getOdos_magaziou().toLowerCase().contains(text.toLowerCase())) {
+                // if the item is matched we are
+                // adding it to our filtered list.
+                filteredlist.add(item);
+            }
+        }
+        if (filteredlist.isEmpty()) {
+            // if no item is added in filtered list we are
+            // displaying a toast message as no data found.
+            Toast.makeText(getActivity(), "No Data Found..", Toast.LENGTH_SHORT).show();
+        } else {
+            // at last we are passing that filtered
+            // list to our adapter class.
+            adapter.filterList(filteredlist);
+        }
     }
 }

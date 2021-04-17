@@ -22,7 +22,22 @@
         <item name="colorPrimaryVariant">@color/blue_sh</item>
     </style>
 
-    <style name="SingUpTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="toolbarTheme" parent="Theme.MaterialComponents.Light">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/blue_sh</item>
+        <!--Gia thn mpara thn epanw einai-->
+        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/white</item>
+        <item name="colorSecondaryVariant">@color/white</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Status bar color. -->
+
+        <!-- Customize your theme here. -->
+        <item name="android:editTextColor">@android:color/white</item>
+        <item name="android:textColorHint">@android:color/white</item>
+        <item name="colorControlActivated">@android:color/white</item>
     </style>
 
     <style name="ActionBarOn" parent="Theme.MaterialComponents.DayNight.DarkActionBar"></style>

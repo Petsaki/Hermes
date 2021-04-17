@@ -18,7 +18,7 @@
             android:layout_weight="0.70"
             map:liteMode="true"
             map:mapType="normal"
-            map:cameraZoom="11"/>
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
