@@ -9,11 +9,11 @@
     <item
         android:id="@+id/navigation_dashboard"
         android:icon="@drawable/icons8_in_transit_48"
-        android:title="Προς Παράδωση" />
+        android:title="Προς Παράδοση" />
 
     <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/icons8_male_user_48"
-        android:title="Λογαριασμός" />
+        android:title="Προφίλ" />
 
 </menu>

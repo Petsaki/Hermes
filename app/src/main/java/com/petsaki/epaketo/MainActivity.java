@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        //getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         requestPermission_location();
 
 
@@ -119,11 +119,11 @@ public class MainActivity extends AppCompatActivity {
         String password = passwordText.getText().toString().trim();
 
         if (email.isEmpty()) {
-            emailText.setError("*Email is required!");
+            emailText.setError("*Απαιτείται email!");
             emailText.requestFocus();
             return;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailText.setError("Wrong mail pattern!");
+            emailText.setError("Λάθος μοτίβο email!");
             emailText.requestFocus();
             return;
         } else {
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (password.isEmpty()) {
-            passwordText.setError("*Password is required!");
+            passwordText.setError("*Απαιτείται το συνθηματικό!");
             passwordText.requestFocus();
             return;
         } else {
@@ -155,11 +155,11 @@ public class MainActivity extends AppCompatActivity {
                             connected();
                         //}else{
                         //user.sendEmailVerification();
-                        showToast("Check your email to verify your account!");
+                        showToast("Ελέγξτε το email σας για να επαληθεύσετε τον λογαριασμό σας!");
                        // }
                         lastTimeSent = System.currentTimeMillis();
                     } else {
-                        showToast("Failed to login!");
+                        showToast("Αποτυχία σύνδεσης!");
                     }
                     progressBar.setVisibility(View.GONE);
                     button.setEnabled(true);
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
             });
 
         }else{
-            showToast("You must wait 30 secs for a new verify email!");
+            showToast("Πρέπει να περιμένεις 30 δευτερόλεπτα για ένα νέο email επαλήθευσης!");
         }
     }
 
@@ -214,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
 //                Toast.makeText(MainActivity.this,"firebaseAuthWithGoogle:" + account.getId(), Toast.LENGTH_LONG).show();
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
-                Toast.makeText(MainActivity.this,"Google sign in failed", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this,"Σύνδεση μέσω Google: απέτυχε.", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             //To Toast einai gia delete,tha to kanw argotera
-                            Toast.makeText(MainActivity.this,"Sing in with google: success", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this,"Σύνδεση μέσω Google: επιτυχής", Toast.LENGTH_LONG).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             String userID=user.getUid();
 //                            Toast.makeText(MainActivity.this,"Uid: "+ userID, Toast.LENGTH_LONG).show();
@@ -257,8 +257,7 @@ public class MainActivity extends AppCompatActivity {
                             connected();
 
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(MainActivity.this,"signInWithCredential:failure", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this,"Σύνδεση μέσω Google: απέτυχε.", Toast.LENGTH_LONG).show();
                         }
                     }
                 });

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="#fafafa">
 
     <TextView
         android:id="@+id/act1_title_id"
@@ -24,40 +25,40 @@
 
     <EditText
         android:id="@+id/act1_email_id"
-        android:layout_width="232dp"
+        android:layout_width="290dp"
         android:layout_height="49dp"
         android:autofillHints="username"
         android:drawableStart="@drawable/icon_username"
         android:drawablePadding="8dp"
         android:ems="10"
-        android:hint="@string/act1_email"
+        android:hint="Email"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.19" />
+        app:layout_constraintVertical_bias="0.22000003" />
 
     <EditText
         android:id="@+id/act1_password_id"
-        android:layout_width="232dp"
+        android:layout_width="290dp"
         android:layout_height="49dp"
         android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="@string/act1_password"
-        android:inputType="textPassword"
-
+        android:autofillHints="password"
         android:drawableStart="@drawable/icon_password"
         android:drawablePadding="8dp"
 
+        android:ems="10"
+        android:hint="Συνθηματικό"
+
+        android:imeOptions="actionSend"
+        android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.283"
-        android:autofillHints="password"
-        android:imeOptions="actionSend"/>
+        app:layout_constraintVertical_bias="0.31" />
 
     <TextView
         android:id="@+id/act1_forgot_id"
@@ -65,64 +66,71 @@
         android:layout_height="wrap_content"
         android:focusable="auto"
         android:onClick="forgot_password_click"
-        android:text="@string/act1_forgot"
+        android:text="Ξέχασες το συνθηματικό σου;"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.33"
+        app:layout_constraintHorizontal_bias="0.31"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.388" />
+        app:layout_constraintVertical_bias="0.41000003" />
 
     <Button
         android:id="@+id/act1_login_id"
-        android:layout_width="104dp"
+        android:layout_width="130dp"
         android:layout_height="60dp"
         android:layout_marginTop="44dp"
-        android:onClick="login_in_click"
-        android:text="@string/act1_login"
         android:clickable="true"
+        android:onClick="login_in_click"
+        android:text="Σύνδεση"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:backgroundTint="@color/blue_sh"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/act1_password_id"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.457"
-        app:backgroundTint="@color/blue_sh"/>
+        app:layout_constraintVertical_bias="0.48000002" />
 
     <Button
         android:id="@+id/act1_singup_id"
-        android:layout_width="104dp"
+        android:layout_width="130dp"
         android:layout_height="60dp"
         android:layout_marginTop="44dp"
         android:onClick="sing_up_click"
-        android:text="@string/act1_singup"
+        android:text="Εγγραφή"
+        android:textAllCaps="false"
+        android:textSize="16sp"
         app:backgroundTint="@color/blue_register"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.753"
+        app:layout_constraintEnd_toEndOf="@+id/act1_password_id"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.457" />
+        app:layout_constraintVertical_bias="0.48000002" />
 
     <Button
         android:id="@+id/act1_track_id"
-        android:layout_width="234dp"
+        android:layout_width="290dp"
         android:layout_height="60dp"
         android:layout_marginTop="144dp"
-        android:text="@string/act1_track"
+        android:text="Εντόπισε το πακέτο σου"
+        android:textAllCaps="false"
+        android:textSize="16sp"
         app:backgroundTint="@color/green_package"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.582" />
+        app:layout_constraintVertical_bias="0.57" />
 
     <TextView
         android:id="@+id/act1_or_login_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="@string/act1_or_login"
+        android:text=" Ή συνδέσου με: "
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -227,5 +235,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.39999998" />
+        app:layout_constraintVertical_bias="0.42000002" />
 </androidx.constraintlayout.widget.ConstraintLayout>

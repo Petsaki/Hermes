@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/SplashScreenTheme">
         <activity android:name=".Item_2_Activity"
-            android:theme="@style/ActionBarOn"></activity>
+            android:theme="@style/Theme.Epaketo.ActionBar"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -37,7 +37,7 @@
             android:label="@string/title_activity_maps" />
         <activity
             android:name=".ItemActivity"
-            android:theme="@style/ActionBarOn" />
+            android:theme="@style/Theme.Epaketo.ActionBar" />
         <activity
             android:name=".Settings_1_Activity"
             android:label="Φίλτρα"

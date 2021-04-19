@@ -54,7 +54,7 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
 
     String last_key="",last_node="";
     boolean isMaxData=false,isScrolling=false;
-    int ITEM_LOAD_COUNT= 10;
+    int ITEM_LOAD_COUNT= 15;
     int currentitems,tottalitems,scrolledoutitems;
     ProgressBar progressBar;
     LinearLayoutManager manager;
@@ -152,8 +152,6 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.tune:
-                        Toast.makeText(getActivity(), "Settings!",
-                                Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getActivity(), Settings_2_Activity.class);
                         startActivity(intent);
                         getActivity().overridePendingTransition(R.anim.slide_up,R.anim.dont_move);
@@ -261,13 +259,13 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
             public void onDataChange(@NonNull DataSnapshot snapshot){
                 for(DataSnapshot lastkey : snapshot.getChildren()) {
                     last_key = lastkey.child("hmerominia").getValue().toString();
-                    Toast.makeText(getContext(), "last_key = " + last_key, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "last_key = " + last_key, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error){
-                Toast.makeText(getContext(), "Can not get last key", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Can not get last key", Toast.LENGTH_SHORT).show();
             }
         });
 

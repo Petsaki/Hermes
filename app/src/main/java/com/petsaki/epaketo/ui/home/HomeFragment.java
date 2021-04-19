@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
     DatabaseReference reference;
     String last_key="",last_node="";
     boolean isMaxData=false,isScrolling=false;
-    int ITEM_LOAD_COUNT= 10;
+    int ITEM_LOAD_COUNT= 15;
     int currentitems,tottalitems,scrolledoutitems;
     ProgressBar progressBar;
     LinearLayoutManager manager;
@@ -164,15 +164,13 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.tune:
-                        Toast.makeText(getActivity(), "Settings!",
-                                Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getActivity(), Settings_1_Activity.class);
                         startActivity(intent);
                         getActivity().overridePendingTransition(R.anim.slide_up,R.anim.dont_move);
                         break;
                     case R.id.action_search:
-                        Toast.makeText(getActivity(), "Search!",
-                                Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getActivity(), "Search!",
+//                                Toast.LENGTH_LONG).show();
                 }
                 return false;
             }
@@ -299,7 +297,7 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
 
             @Override
             public void onCancelled(@NonNull DatabaseError error){
-                Toast.makeText(getContext(), "Can not get last key", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Can not get last key", Toast.LENGTH_SHORT).show();
             }
         });
 

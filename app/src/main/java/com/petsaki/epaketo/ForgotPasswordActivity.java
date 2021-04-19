@@ -84,11 +84,11 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         String email = emailText.getText().toString().trim();
 
         if (email.isEmpty()){
-            emailtextInput.setError("Can't be empty");
+            emailtextInput.setError("Δεν μπορεί να είναι κενό");
             emailtextInput.requestFocus();
             return;
         }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            emailtextInput.setError("Wrong mail pattern!");
+            emailtextInput.setError("Λάθος μοτίβο email!");
             emailtextInput.requestFocus();
             return;
         }else{
@@ -110,10 +110,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         toast.makeText(ForgotPasswordActivity.this, "", Toast.LENGTH_LONG);
                         toast.cancel();
-                        showToast("Email sended!");
+                        showToast("Το email στάλθηκε!");
                         lastTimeSent = System.currentTimeMillis();
                     } else {
-                        showToast("Something went wrong.");
+                        showToast("Κάτι πήγε στραβά.");
                     }
                     progressBar.setVisibility(View.GONE);
                     button.setEnabled(true);
@@ -121,7 +121,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             });
 
         }else{
-            showToast("You must wait 1 minute for a new one!");
+            showToast("Πρέπει να περιμένεις 1 λεπτό για καινούργιο email!");
 
         }
     }
@@ -144,7 +144,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, getClass());
         this.overridePendingTransition(R.anim.corner_down_right,R.anim.slide_out_right);
         finish();
     }

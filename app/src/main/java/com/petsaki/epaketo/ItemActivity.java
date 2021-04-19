@@ -76,6 +76,8 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
         viewPager = findViewById(R.id.viewPager);
         akyrwshButton=findViewById(R.id.button3);
         epiloghButton=findViewById(R.id.button4);
+        setTitle("Πληροφορίες Πακέτου");
+        getSupportActionBar().setElevation(0);
 
         //Trabaw ta dedomena apo to antikeimeno pou pathsa
         Intent intent = getIntent();
@@ -165,7 +167,7 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
 //            return;
 //        }
 //        LatLng address = getLocationFromAddress(this, "Κολοκοτρώνη 20, Τριάδι, 57001");
-//        googleMap.addMarker(new MarkerOptions().position(address).title("Παράδωση"));
+//        googleMap.addMarker(new MarkerOptions().position(address).title("Παράδοση"));
 //
 //        LatLng address2 = getLocationFromAddress(this, "Εγνατία, Θεσσαλονίκη");
 //        googleMap.addMarker(new MarkerOptions().position(address2).title("Πακέτο"));
@@ -265,9 +267,9 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot snapshot) {
 //                if (snapshot.getValue()==null){
-//                    Toast.makeText(ItemActivity.this, "Den Yparxeis gamhmeno paketo", Toast.LENGTH_SHORT).show();
+//
 //                }else{
-//                    Toast.makeText(ItemActivity.this, "Yparxeis kai se thelw", Toast.LENGTH_SHORT).show();
+//
 //                }
 //            }
 //
@@ -285,7 +287,8 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
                     if (ds.getValue()!=null){
                         String keyPaketou=ds.getKey();
-                        Toast.makeText(ItemActivity.this, "Yparxeis kai se thelw: "+keyPaketou, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(ItemActivity.this, "Το πακέτο αυτό πλέον βρίσκετε στην καρτέλα Προς Παράδοση!", Toast.LENGTH_SHORT).show();
+                        showToast("Το πακέτο αυτό πλέον βρίσκετε στην καρτέλα Προς Παράδοση!");
 
 
 //                        String userID=user.getUid();
@@ -320,7 +323,8 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
                     }
                 }
                 if(checking){
-                    Toast.makeText(ItemActivity.this, "Φαίνεται ότι καποιος έχει πάρει ήδη το πακέτο αυτό.", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(ItemActivity.this, "Φαίνεται ότι κάποιος άλλος πρόλαβε αυτό το πακέτο.", Toast.LENGTH_SHORT).show();
+                    showToast("Φαίνεται ότι κάποιος άλλος πρόλαβε αυτό το πακέτο.");
                     epiloghButton.setEnabled(true);
                 }
           }
@@ -329,7 +333,7 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        Toast.makeText(this, "ID: "+ paketoHmer, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "ID: "+ paketoHmer, Toast.LENGTH_SHORT).show();
     }
 
     public void showToast(String string) {

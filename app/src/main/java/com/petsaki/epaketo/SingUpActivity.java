@@ -145,7 +145,7 @@ public class SingUpActivity extends AppCompatActivity {
 
 
         if (username.isEmpty()) {
-            usernametextInput.setError("Can't be empty");
+            usernametextInput.setError("Δεν μπορεί να είναι κενό");
             usernametextInput.requestFocus();
             return;
         } else {
@@ -153,11 +153,11 @@ public class SingUpActivity extends AppCompatActivity {
         }
 
         if (email.isEmpty()){
-            emailtextInput.setError("Can't be empty");
+            emailtextInput.setError("Δεν μπορεί να είναι κενό");
             emailtextInput.requestFocus();
             return;
         }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            emailtextInput.setError("Wrong mail pattern!");
+            emailtextInput.setError("Λάθος μοτίβο email!");
             emailtextInput.requestFocus();
             return;
         }else{
@@ -165,11 +165,11 @@ public class SingUpActivity extends AppCompatActivity {
         }
 
         if (password.isEmpty()) {
-            passwordtextInput.setError("Can't be empty");
+            passwordtextInput.setError("Δεν μπορεί να είναι κενό");
             passwordtextInput.requestFocus();
             return;
         } else if (password.length() < 8) {
-            passwordtextInput.setError("Password must be at least 8 letters");
+            passwordtextInput.setError("Πρέπει να είναι τουλάχιστον 8 χαρακτήρες");
             passwordtextInput.requestFocus();
             return;
         } else {
@@ -198,7 +198,7 @@ public class SingUpActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
-                                            showToast("User has been singed up successfully!"+mAuth.getCurrentUser());
+                                            showToast("Δημιουργία λογαριασμού επιτυχής!");//+mAuth.getCurrentUser());
                                             FirebaseAuth.getInstance().signOut();
                                             Handler handler = new Handler();
                                             handler.postDelayed(new Runnable() {
@@ -208,13 +208,13 @@ public class SingUpActivity extends AppCompatActivity {
                                             }, 1250);
 
                                         } else {
-                                            showToast("Failed to singed up. Try again!");
+                                            showToast("Αποτυχία εγγραφής. Προσπάθησε ξανά!");
                                         }
                                         progressBar.setVisibility(View.GONE);
                                     }
                                 });
                             } else {
-                                showToast("Failed to singed up. Try again!");
+                                showToast("Αποτυχία εγγραφής. Προσπάθησε ξανά!");
                                 progressBar.setVisibility(View.GONE);
                             }
                             button.setEnabled(true);

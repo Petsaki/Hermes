@@ -241,10 +241,10 @@ public class HelperAdapter extends RecyclerView.Adapter<HelperAdapter.NewViewHol
 
     @Override
     public void onBindViewHolder(@NonNull NewViewHolder holder, int position){
-        holder.odos.setText(paketaList.get(position).getOdos());
+        holder.odos.setText(paketaList.get(position).getOdos().substring(0,paketaList.get(position).getOdos().length()-6));
         holder.baros.setText(paketaList.get(position).getBaros());
         holder.onoma_etairias.setText(paketaList.get(position).getOnoma_etairias());
-        holder.odos_magaziou.setText(paketaList.get(position).getOdos_magaziou());
+        holder.odos_magaziou.setText(paketaList.get(position).getOdos_magaziou().substring(0,paketaList.get(position).getOdos_magaziou().length()-6));
         holder.megethos.setText(paketaList.get(position).getMegethos());
         holder.odos_p=paketaList.get(position).getOdos();
         holder.odos_m=paketaList.get(position).getOdos_magaziou();

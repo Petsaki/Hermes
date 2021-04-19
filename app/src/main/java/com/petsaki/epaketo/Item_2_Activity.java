@@ -50,6 +50,8 @@ public class Item_2_Activity extends AppCompatActivity {
         tabLayout= findViewById(R.id.tabLayout2);
         viewPager = findViewById(R.id.viewPager);
         oloklhrwsh=findViewById(R.id.button3);
+        setTitle("Πληροφορίες Πακέτου");
+        getSupportActionBar().setElevation(0);
 
         //Trabaw ta dedomena apo to antikeimeno pou pathsa
         Intent intent = getIntent();
@@ -132,16 +134,50 @@ public class Item_2_Activity extends AppCompatActivity {
                     if (ds.getValue()!=null){
                         ds.getRef().removeValue();
                     }
+
+                    //METRAEI POSA PAKETA PAREDOSE O SIGKEKRIMENOS ODHGOS
+                    DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("Users")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+                            if (snapshot.hasChild("Paradothikan")) {
+
+                                Query query2 = rootRef.child("Paradothikan");
+                                query2.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        int x = Integer.valueOf(String.valueOf(snapshot.getValue()));
+                                        x++;
+                                        FirebaseDatabase.getInstance().getReference("Users")
+                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Paradothikan").setValue(x);
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                            }else{
+                                FirebaseDatabase.getInstance().getReference("Users")
+                                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Paradothikan").setValue(1);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
-                    Toast.makeText(Item_2_Activity.this, "Πακέτο παραδώθηκε!", Toast.LENGTH_SHORT).show();
-                oloklhrwsh.setEnabled(true);
+                    showToast("Πακέτο παραδόθηκε!");
+                oloklhrwsh.setEnabled(false);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        Toast.makeText(this, "ID: "+ paketoHmer, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "ID: "+ paketoHmer, Toast.LENGTH_SHORT).show();
     }
 
     public void showToast(String string) {

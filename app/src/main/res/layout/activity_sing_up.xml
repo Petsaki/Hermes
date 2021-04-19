@@ -4,27 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SingUpActivity">
+    tools:context=".SingUpActivity"
+    android:background="#fafafa">
+
+    <TextView
+        android:id="@+id/act1_title_id2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sonsie_one"
+        android:text="@string/act1_title"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.046" />
 
     <TextView
         android:id="@+id/act2_singup_id"
-        android:layout_width="wrap_content"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:text="@string/act2_singup"
-        android:textSize="30sp"
+        android:gravity="center"
+        android:text="Δημιουργία Λογαριασμού"
+        android:textColor="@color/blue_sh"
+        android:textSize="36sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.092" />
+        app:layout_constraintVertical_bias="0.050000012" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/act2_text_input_username_id"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:hint="@string/act2_username"
+        android:hint="Όνομα χρήστη"
         app:counterEnabled="true"
         app:counterMaxLength="30"
         app:errorEnabled="true"
@@ -33,32 +53,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
-        app:layout_constraintVertical_bias="0.23000002">
+        app:layout_constraintVertical_bias="0.31">
 
         <EditText
             android:id="@+id/act2_username_id"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:maxLength="30"
             android:layout_weight="1"
             android:ems="10"
+            android:imeOptions="actionNext"
             android:inputType="textPersonName"
-            android:imeOptions="actionNext"/>
+            android:maxLength="30" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/forgot_text_input_email_id"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:hint="Email"
         app:errorEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.39">
+        app:layout_constraintVertical_bias="0.48000002">
 
 
         <EditText
@@ -74,18 +94,18 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/act2_text_input_password_id"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:hint="@string/act1_password"
+        android:hint="Συνθηματικό"
         app:endIconMode="password_toggle"
         app:errorEnabled="true"
-        app:helperText="Password must be atleast 8 letters long"
+        app:helperText="Πρέπει να είναι τουλάχιστον 8 χαρακτήρες"
         app:helperTextEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/forgot_text_input_email_id"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.57">
+        app:layout_constraintVertical_bias="0.655">
 
 
         <EditText
@@ -100,17 +120,19 @@
 
     <Button
         android:id="@+id/act2_create_button_id"
-        android:layout_width="wrap_content"
+        android:layout_width="290dp"
         android:layout_height="60dp"
-        android:onClick="create_account_click"
-        android:text="CREATE ACCOUNT"
         android:clickable="true"
+        android:onClick="create_account_click"
+        android:text="Δημιουργία λογαριασμού"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:backgroundTint="@color/blue_sh"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8"
-        app:backgroundTint="@color/blue_register"/>
+        app:layout_constraintVertical_bias="0.9" />
 
     <ProgressBar
         android:id="@+id/act2_progressBar_id"
@@ -122,6 +144,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.68" />
+        app:layout_constraintVertical_bias="0.78" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
