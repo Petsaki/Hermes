@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/not_white" />
+    <!--Ta padding einai gia ta android 4.4 giati den pairnoun ta size-->
+
+
+    <item android:top="160dp"
+        android:bottom="160dp"
+        android:left="50dp"
+        android:right="50dp">
+        <rotate
+            android:fromDegrees="120"
+            android:toDegrees="90"
+            android:pivotX="40%"
+            android:pivotY="10%"
+            android:drawable="@drawable/ic_packages"/>
+    </item>
+
+
+
+</layer-list>

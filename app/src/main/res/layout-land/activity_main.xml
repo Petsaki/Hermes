@@ -161,7 +161,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.954"
-        app:srcCompat="@drawable/icon_ig" />
+        app:srcCompat="@drawable/microsoft" />
 
     <ImageView
         android:id="@+id/act1_fb_view_id"
@@ -175,7 +175,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.954"
-        app:srcCompat="@drawable/icon_fb" />
+        app:srcCompat="@drawable/facebook" />
 
     <ImageView
         android:id="@+id/act1_google_view_id"
@@ -189,7 +189,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.954"
-        app:srcCompat="@drawable/icon_google" />
+        app:srcCompat="@drawable/search" />
 
     <ImageView
         android:id="@+id/act1_apple_view_id"
@@ -203,6 +203,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.954"
-        app:srcCompat="@drawable/icon_apple" />
+        app:srcCompat="@drawable/apple" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

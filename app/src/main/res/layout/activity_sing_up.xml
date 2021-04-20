@@ -37,7 +37,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.050000012" />
+        app:layout_constraintVertical_bias="0.04000002" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/act2_text_input_username_id"
@@ -124,7 +124,7 @@
         android:layout_height="60dp"
         android:clickable="true"
         android:onClick="create_account_click"
-        android:text="Δημιουργία λογαριασμού"
+        android:text="Δημιουργία Λογαριασμού"
         android:textAllCaps="false"
         android:textSize="16sp"
         app:backgroundTint="@color/blue_sh"

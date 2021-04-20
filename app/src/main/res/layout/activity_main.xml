@@ -102,7 +102,7 @@
         android:text="Εγγραφή"
         android:textAllCaps="false"
         android:textSize="16sp"
-        app:backgroundTint="@color/blue_register"
+        app:backgroundTint="@color/blue_sh"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/act1_password_id"
         app:layout_constraintHorizontal_bias="1.0"
@@ -115,10 +115,10 @@
         android:layout_width="290dp"
         android:layout_height="60dp"
         android:layout_marginTop="144dp"
-        android:text="Εντόπισε το πακέτο σου"
+        android:text="Εντoπισμός Πακέτου"
         android:textAllCaps="false"
         android:textSize="16sp"
-        app:backgroundTint="@color/green_package"
+        app:backgroundTint="@color/blue_sh"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -151,7 +151,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.954"
-        app:srcCompat="@drawable/icon_ig" />
+        app:srcCompat="@drawable/microsoft" />
 
     <ImageView
         android:id="@+id/act1_fb_view_id"
@@ -166,7 +166,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.954"
-        app:srcCompat="@drawable/icon_fb" />
+        app:srcCompat="@drawable/facebook" />
 
     <ImageView
         android:id="@+id/act1_google_view_id"
@@ -182,7 +182,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.954"
-        app:srcCompat="@drawable/icon_google" />
+        app:srcCompat="@drawable/search" />
 
     <ImageView
         android:id="@+id/act1_apple_view_id"
@@ -197,7 +197,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.954"
-        app:srcCompat="@drawable/icon_apple" />
+        app:srcCompat="@drawable/apple" />
 
     <View
         android:layout_width="0dp"

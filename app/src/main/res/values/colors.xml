@@ -11,4 +11,5 @@
     <color name="green_package">#0AFF9B</color>
     <color name="blue_register">#2255FF</color>
     <color name="grey">#FF4C4C4C</color>
+    <color name="not_white">#fafafa</color>
 </resources>
