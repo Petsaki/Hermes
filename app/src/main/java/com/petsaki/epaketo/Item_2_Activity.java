@@ -26,8 +26,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Item_2_Activity extends AppCompatActivity {
 
-    private Polyline polyline;
-    private Button akyrwshButton,epiloghButton;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private DatabaseReference reference;
@@ -35,7 +33,6 @@ public class Item_2_Activity extends AppCompatActivity {
     private ViewPager viewPager;
     FetchData fetchDataPaketo;
     private String paketoHmer;
-    boolean checking;
     private Toast toast;
 
     private Button oloklhrwsh;
@@ -139,6 +136,7 @@ public class Item_2_Activity extends AppCompatActivity {
                     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("Users")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
                     rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        //Gia to child paradothikan kanei +1 ama yparxei allios ftiaxnei to paradothikan kai bazei 1
                         @Override
                         public void onDataChange(DataSnapshot snapshot) {
                             if (snapshot.hasChild("Paradothikan")) {

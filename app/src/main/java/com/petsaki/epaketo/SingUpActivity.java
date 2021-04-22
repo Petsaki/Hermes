@@ -47,7 +47,6 @@ public class SingUpActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        //Metablhtes antikimenwn
         usernameText = (EditText) findViewById(R.id.act2_username_id);
         emailText = (EditText) findViewById(R.id.act2_email_id);
         passwordText = (EditText) findViewById(R.id.act2_password_id);
@@ -60,6 +59,8 @@ public class SingUpActivity extends AppCompatActivity {
 
         progressBar=(ProgressBar)findViewById(R.id.act2_progressBar_id);
 
+
+        //Gia na bgei to eror otan kanei allagei sto text input
         usernameText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -79,6 +80,7 @@ public class SingUpActivity extends AppCompatActivity {
             }
         });
 
+        //Gia na bgei to eror otan kanei allagei sto text input
         emailText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -98,6 +100,7 @@ public class SingUpActivity extends AppCompatActivity {
             }
         });
 
+        //Gia na bgei to eror otan kanei allagei sto text input
         passwordText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -123,6 +126,7 @@ public class SingUpActivity extends AppCompatActivity {
 
     }
 
+    //Allazei to enter sto keyboard se Send kai kali thn methodo apo ena button
     private TextView.OnEditorActionListener editorActionListener = new TextView.OnEditorActionListener(){
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {

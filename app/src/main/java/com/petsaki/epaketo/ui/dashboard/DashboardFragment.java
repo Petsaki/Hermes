@@ -44,13 +44,10 @@ import java.util.List;
 public class DashboardFragment extends Fragment implements HelperAdapter.SelectedPaketo{
 
     View DashboardFragment;
-    private DashboardViewModel dashboardViewModel;
     private Toolbar toolbar;
 
     RecyclerView recyclerView;
-    List<FetchData> fetchData;
     HelperAdapter adapter;
-    DatabaseReference reference;
 
     String last_key="",last_node="";
     boolean isMaxData=false,isScrolling=false;
@@ -66,11 +63,8 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
-
-
         DashboardFragment=inflater.inflate(R.layout.fragment_dashboard,container,false);
-//        final TextView textView = root.findViewById(R.id.text_dashboard);
+
         toolbar=(Toolbar)DashboardFragment.findViewById(R.id.toolbar);
         recyclerView = (RecyclerView)DashboardFragment.findViewById(R.id.recyclerView);
         refreshLayout = (SwipeRefreshLayout)DashboardFragment.findViewById(R.id.swipeRefresh);
@@ -78,12 +72,8 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
         emptyBox=(ImageView)DashboardFragment.findViewById(R.id.emptyBox);
         emptyView=(TextView)DashboardFragment.findViewById(R.id.emptyView);
 
-//        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
+
+        //Arxikopoiw oti exei na kanei me to recycler view
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -91,11 +81,8 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
                 //recyclerView.setAdapter(null);
                 last_node="";
                 isMaxData=false;
-                //currentitems=tottalitems=scrolledoutitems=0;
                 getLastKeyFromFirebase();
                 resetRecycle();
-//                recyclerView.setAdapter(adapter);
-//                recyclerView.setLayoutManager(manager);
                 getPaketa();
 
             }
@@ -105,16 +92,17 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
         getLastKeyFromFirebase();
         resetRecycle();
 
+        //Kanw delay giati telika auto eftege pou den fortwne swsta ola ta paketa
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
                 getPaketa();
             }
-        }, 280);
+        }, 290);
 
 
 
-
+        //ScrollListener gia na ckerw ama eftase sto telos tou recycler view
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState){
@@ -147,6 +135,8 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
             }
         });
 
+
+        //Gia to toolbar gia na anoickei ta filtra
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -164,12 +154,14 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
         return DashboardFragment;
     }
 
+    //Trabaw data apo thn bash
     private void getPaketa()
     {
         if(!isMaxData)
         {
             Query query;
 
+            //last_node einai to teleutaio paketo apo thn partida poy trabicke apo thn bash
             if (TextUtils.isEmpty(last_node)) {
                 query = FirebaseDatabase.getInstance().getReference()
                         .child("Users")
@@ -200,15 +192,14 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
                         }
 
                         last_node =newFetchData.get(newFetchData.size()-1).getHmerominia();
-//                        Toast.makeText(getContext(), "last_node = "+ last_node, Toast.LENGTH_SHORT).show();
+
                         if(!last_node.equals(last_key)) {
                             newFetchData.remove(newFetchData.size() - 1);
                         }else {
                             last_node = "end";
-                            //Toast.makeText(getContext(), "Bghkaaa", Toast.LENGTH_SHORT).show();
                         }
-//                         Toast.makeText(getContext(), "last_node = "+last_node, Toast.LENGTH_SHORT).show();
 
+                        //kalo apo thn HelperAdapter thn addAll methodo
                         adapter.addAll(newFetchData);
                         adapter.notifyDataSetChanged();
 
@@ -250,6 +241,7 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
 
     }
 
+    //Pairnw to id tou teleutaiou paketou me orderBy thn hmerominia
     private void getLastKeyFromFirebase(){
         Query getLastKey= FirebaseDatabase.getInstance().getReference().child("Users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("ProsParadwsh").orderByChild("hmerominia").limitToLast(1);
@@ -259,7 +251,6 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
             public void onDataChange(@NonNull DataSnapshot snapshot){
                 for(DataSnapshot lastkey : snapshot.getChildren()) {
                     last_key = lastkey.child("hmerominia").getValue().toString();
-                    //Toast.makeText(getContext(), "last_key = " + last_key, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -271,15 +262,18 @@ public class DashboardFragment extends Fragment implements HelperAdapter.Selecte
 
 
     }
+
+    //Stelnw ta data tou paketou pou patithike kai anoigw kainourgio activity
     @Override
     public void selectedPaketo(FetchData fetchData) {
         startActivity(new Intent(getActivity(), Item_2_Activity.class).putExtra("data",fetchData));
         getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.corner_up_left);
     }
 
+    //Oute egw den ckerw akribws ti kanei :)
     public void resetRecycle(){
         manager = new LinearLayoutManager(getContext());
-        //SOS MALLON EDW LATHOS MARIEEEEEE KOITA EDW SE AYTH THN GRAMMH - Onclick tutorial
+        //SOS MALLON EDW EXW LATHOS, KOITA EDW SE AYTH THN GRAMMH - Onclick tutorial
         adapter=new HelperAdapter(getContext(),this::selectedPaketo);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(manager);

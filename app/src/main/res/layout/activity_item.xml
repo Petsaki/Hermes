@@ -69,17 +69,17 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/button4"
                 android:layout_width="160dp"
                 android:layout_height="55dp"
                 android:layout_gravity="center|center_horizontal"
-                android:onClick="akyrwshFun"
-                android:text="Ακύρωση"
+                android:onClick="epiloghFun"
+                android:text="Επιλογή"
                 android:textAllCaps="false"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.08"
+                app:layout_constraintEnd_toEndOf="@+id/view"
+                app:layout_constraintHorizontal_bias="0.92"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.9925" />
@@ -93,17 +93,23 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/button3"
                 android:layout_width="160dp"
-                android:layout_height="55dp"
+                android:layout_height="45dp"
                 android:layout_gravity="center|center_horizontal"
-                android:onClick="epiloghFun"
-                android:text="Επιλογή"
+                android:background="@drawable/button_border_sh_blue"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:onClick="akyrwshFun"
+                android:text="Ακύρωση"
                 android:textAllCaps="false"
+                android:textColor="@color/blue_sh"
                 android:textSize="16sp"
+                app:backgroundTint="@color/blue_sh"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/view"
-                app:layout_constraintHorizontal_bias="0.92"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.08"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.9925" />

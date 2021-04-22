@@ -19,8 +19,10 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -36,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+//EDW EINAI POU GINONTE OLA TA KOLPA GIA TO RECYCLER VIEW GIA NA TA DEIXNEI TA PAKETA
 
 public class HelperAdapter extends RecyclerView.Adapter<HelperAdapter.NewViewHolder>{
     static List<FetchData> paketaList;
@@ -51,6 +54,7 @@ public class HelperAdapter extends RecyclerView.Adapter<HelperAdapter.NewViewHol
         this.copypaketaList.addAll(paketaList);
     }
 
+    //Bazei sto telos tis stibas ta kainoyrgia paketa
     public void addAll(List<FetchData> newFetchData){
         int initsize=paketaList.size();
         paketaList.addAll(newFetchData);
@@ -60,6 +64,7 @@ public class HelperAdapter extends RecyclerView.Adapter<HelperAdapter.NewViewHol
 
 
 
+    //Oti item exei scrollaristei kai den fenete sthn othonh na diagrafei ta dedomena apo tous xartes
     @Override
     public void onViewRecycled(@NonNull NewViewHolder holder) {
         if (holder.map != null)
@@ -78,6 +83,8 @@ public class HelperAdapter extends RecyclerView.Adapter<HelperAdapter.NewViewHol
         Marker adr1;
         Marker adr2;
         String odos_m,odos_p;
+
+        //To custom marker gia to xarth
         BitmapDrawable bitmapdraw = (BitmapDrawable)context.getResources().getDrawable(R.drawable.icons8_package_48);
         Bitmap b = bitmapdraw.getBitmap();
         Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
@@ -87,6 +94,7 @@ public class HelperAdapter extends RecyclerView.Adapter<HelperAdapter.NewViewHol
         Bitmap smallMarker2 = Bitmap.createScaledBitmap(b2, width, height, false);
 
 
+        //Kalite kathe fora gia ena neo antikeimeno pou mpainei sto recycler
         public NewViewHolder(@NonNull View itemView){
             super(itemView);
             odos=itemView.findViewById(R.id.odos);
@@ -114,68 +122,32 @@ public class HelperAdapter extends RecyclerView.Adapter<HelperAdapter.NewViewHol
         }
 
 
+        //Kalite kathe fora gia na arxikopoihsh toys xartes
         @Override
         public void onMapReady(GoogleMap googleMap) {
             MapsInitializer.initialize(context);
 
             map= googleMap;
-
             map.getUiSettings().setAllGesturesEnabled(false);
             map.getUiSettings().setMapToolbarEnabled(false);
+
             if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED
                     && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
                 return;
             }
-//            BitmapDrawable bitmapdraw = (BitmapDrawable)context.getResources().getDrawable(R.drawable.icons8_package_48);
-//            Bitmap b = bitmapdraw.getBitmap();
-//            Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
-//
-//            BitmapDrawable bitmapdraw2 = (BitmapDrawable)context.getResources().getDrawable(R.drawable.icons8_house_48);
-//            Bitmap b2 = bitmapdraw2.getBitmap();
-//            Bitmap smallMarker2 = Bitmap.createScaledBitmap(b2, width, height, false);
-//
-//            //ΜΑΡΙΕ ΒΓΑΛΕ ΤΟ ΙF ΑΠΟ ΕΔΩ!!!
-////            LatLng address = getLocationFromAddress(context, null);
-////            if (address==null){
-//            LatLng address= getLocationFromAddress(context, odos_p);
-////            }
-//            map.addMarker(new MarkerOptions().position(address).icon(BitmapDescriptorFactory.fromBitmap(smallMarker2)));
-//
-//            LatLng address2 = getLocationFromAddress(context, odos_m);
-//
-//            map.addMarker(new MarkerOptions().position(address2).icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
-//
-//            LatLngBounds.Builder builder = new LatLngBounds.Builder();
-//            builder.include(address);
-//            builder.include(address2);
-//            LatLngBounds bounds = builder.build();
-////            map.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 200));
-//            map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 200));
-//            map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
             setMapLocation();
-
-//            map.moveCamera(CameraUpdateFactory.newLatLng(address2));
-//            map.animateCamera(CameraUpdateFactory.zoomIn());
-            // Zoom out to zoom level 10, animating with a duration of 2 seconds.
-            //map.animateCamera(CameraUpdateFactory.zoomTo(10), 1, null);
-            //map.setMyLocationEnabled(true);
         }
+
+        //Bazw tous markers kai deixnw tous xartes
         private void setMapLocation() {
             if (map == null) return;
 
             FetchData data = (FetchData) mapView.getTag();
             if (data == null) return;
+            map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-            // Add a marker for this item and set the camera
 //            map.moveCamera(CameraUpdateFactory.newLatLngZoom(data.location, 13f));
 //            map.addMarker(new MarkerOptions().position(data.location));
             LatLng address= getLocationFromAddress(context,data.getOdos());
@@ -187,12 +159,13 @@ public class HelperAdapter extends RecyclerView.Adapter<HelperAdapter.NewViewHol
             builder.include(address);
             builder.include(address2);
             LatLngBounds bounds = builder.build();
-            map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 200));
+            map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds,0));
+            //map.moveCamera(CameraUpdateFactory.zoomTo(13f));
 
-            // Set the map type back to normal.
-            map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
         }
 
+        //Apo aples dieuthinseis tis kanei sintetagmenes
         public LatLng getLocationFromAddress(Context context, String strAddress)
         {
             Geocoder coder= new Geocoder(context);
@@ -201,7 +174,7 @@ public class HelperAdapter extends RecyclerView.Adapter<HelperAdapter.NewViewHol
 
             try
             {
-                address = coder.getFromLocationName(strAddress, 5);
+                address = coder.getFromLocationName(strAddress, 1);
                 if(address==null)
                 {
                     return null;
@@ -220,6 +193,7 @@ public class HelperAdapter extends RecyclerView.Adapter<HelperAdapter.NewViewHol
 
         }
 
+        //oti lene ta sxolia vvv
         private void bindView(int pos) {
             FetchData item = paketaList.get(pos);
             // Store a reference of the ViewHolder object in the layout.
@@ -245,7 +219,7 @@ public class HelperAdapter extends RecyclerView.Adapter<HelperAdapter.NewViewHol
         holder.baros.setText(paketaList.get(position).getBaros());
         holder.onoma_etairias.setText(paketaList.get(position).getOnoma_etairias());
         holder.odos_magaziou.setText(paketaList.get(position).getOdos_magaziou().substring(0,paketaList.get(position).getOdos_magaziou().length()-6));
-        holder.megethos.setText(paketaList.get(position).getMegethos());
+        holder.megethos.setText(paketaList.get(position).getMegethos());//easteregg:paidiki fili <3
         holder.odos_p=paketaList.get(position).getOdos();
         holder.odos_m=paketaList.get(position).getOdos_magaziou();
 
@@ -264,6 +238,8 @@ public class HelperAdapter extends RecyclerView.Adapter<HelperAdapter.NewViewHol
         void selectedPaketo(FetchData fetchData);
     }
 
+
+    //O PARAKATW KWDIKAS HTAN GIA TO SEARCH. DEN EXEI KATI ALLO. MHN TO DINEIS SHMASIA
     // method for filtering our recyclerview items.
     public void filterList(ArrayList<FetchData> filterlist) {
         // below line is to add our filtered

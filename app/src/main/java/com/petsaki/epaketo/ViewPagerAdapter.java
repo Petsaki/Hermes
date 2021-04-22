@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+
+//EINAI GIA TA TABS APO TA ItemActivity kai Item_2_Activity. Den ckerw akribws ti kanei :)
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<Fragment> fragmentList=new ArrayList<>();

@@ -1,6 +1,5 @@
 package com.petsaki.epaketo.ui.home;
 
-import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -11,20 +10,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -37,14 +32,10 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.petsaki.epaketo.FetchData;
 import com.petsaki.epaketo.HelperAdapter;
-import com.petsaki.epaketo.HomeActivity;
 import com.petsaki.epaketo.HomeActivityViewModel;
 import com.petsaki.epaketo.ItemActivity;
-import com.petsaki.epaketo.MainActivity;
-import com.petsaki.epaketo.MapsActivity;
 import com.petsaki.epaketo.R;
 import com.petsaki.epaketo.Settings_1_Activity;
-import com.petsaki.epaketo.Settings_2_Activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +75,7 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
         refreshLayout = (SwipeRefreshLayout)HomeFragment.findViewById(R.id.swipeRefresh);
 
 
+        //APOTIXIMENH PROSPATHIA GIA NA KRATAW TO SCROLL POTISION TOU RECYCLER VIEW
 //        homeActivityViewModel.getRecyler_main_Y().observe(getViewLifecycleOwner(), new Observer<Integer>() {
 //            @Override
 //            public void onChanged(Integer s) {
@@ -99,22 +91,17 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
 //            }
 //        });
 
+        //Arxikopoiw oti exei na kanei me to recycler view
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 refreshLayout.setRefreshing(true);
-                //recyclerView.setAdapter(null);
                 last_node="";
                 isMaxData=false;
-                //currentitems=tottalitems=scrolledoutitems=0;
                 getLastKeyFromFirebase();
                 resetRecycle();
-//                recyclerView.setAdapter(adapter);
-//                recyclerView.setLayoutManager(manager);
                 getPaketa();
-
             }
-
         });
 
         progressBar=(ProgressBar)HomeFragment.findViewById(R.id.progressBar);
@@ -126,6 +113,7 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
 
         getPaketa();
 
+        //ScrollListener gia na ckerw ama eftase sto telos tou recycler view
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState){
@@ -158,7 +146,7 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
             }
         });
 
-
+        //Gia to toolbar gia na anoickei ta filtra
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -180,42 +168,17 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
 
         });
 
-
-//            reference = FirebaseDatabase.getInstance().getReference().child("Paketa");
-//            reference.addListenerForSingleValueEvent(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                    for (DataSnapshot ds : snapshot.getChildren()) {
-//                        FetchData data = ds.getValue(FetchData.class);
-//                        fetchData.add(data);
-//                    }
-//                    helperAdapter = new HelperAdapter(fetchData);
-//                    recyclerView.setAdapter(helperAdapter);
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//
-//                }
-//            });
-
-
-//        recyclerView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-//            @Override
-//            public void onScrollChanged() {
-//                setscrollY = recyclerView.getScrollY();
-//            }
-//        });
-
         return HomeFragment;
     }
 
+    //Trabaw data apo thn bash
     private void getPaketa()
     {
         if(!isMaxData)
         {
             Query query;
 
+            //last_node einai to teleutaio paketo apo thn partida poy trabicke apo thn bash
             if (TextUtils.isEmpty(last_node))
                 query = FirebaseDatabase.getInstance().getReference()
                         .child("Paketa")
@@ -243,16 +206,13 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
                         }
 
                         last_node =fetchData.get(fetchData.size()-1).getHmerominia();
-//                        Toast.makeText(getContext(), "last_node = "+ last_node, Toast.LENGTH_SHORT).show();
                         if(!last_node.equals(last_key)) {
                             fetchData.remove(fetchData.size() - 1);
                         }else {
                             last_node = "end";
-                            //Toast.makeText(getContext(), "Bghkaaa", Toast.LENGTH_SHORT).show();
                         }
-//                         Toast.makeText(getContext(), "last_node = "+last_node, Toast.LENGTH_SHORT).show();
 
-                        //EDW MALLON GINETE H TROLLIA ME TOUS XARTES -.-
+                        //kalo apo thn HelperAdapter thn addAll methodo
                         adapter.addAll(fetchData);
                         adapter.notifyDataSetChanged();
 
@@ -283,6 +243,7 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
         }
     }
 
+    //Pairnw to id tou teleutaiou paketou me orderBy thn hmerominia
     private void getLastKeyFromFirebase(){
         Query getLastKey= FirebaseDatabase.getInstance().getReference().child("Paketa").orderByChild("hmerominia").limitToLast(1);
 
@@ -304,12 +265,14 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
 
     }
 
+    //Stelnw ta data tou paketou pou patithike kai anoigw kainourgio activity
     @Override
     public void selectedPaketo(FetchData fetchData) {
             startActivity(new Intent(getActivity(), ItemActivity.class).putExtra("data",fetchData));
             getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.corner_up_left);
     }
 
+    //Apotiximenh prospathia gia na krataw to scroll potision tou recycler
 //    @Override
 //    public void onPause() {
 //        super.onPause();
@@ -320,6 +283,7 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
 //        homeActivityViewModel.setRecyler_main_Y(setscrollY);
 //    }
 
+    //Oute egw den ckerw akribws ti kanei :)
     public void resetRecycle(){
         manager = new LinearLayoutManager(getContext());
         //SOS MALLON EDW LATHOS MARIEEEEEE KOITA EDW SE AYTH THN GRAMMH - Onclick tutorial
@@ -328,6 +292,8 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
         recyclerView.setLayoutManager(manager);
     }
 
+
+    //GIA TO SEARCH ALLA DEN DOULEYEI
 //    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
 //        MenuInflater inflater= getActivity().getMenuInflater();
 //        inflater.inflate(R.menu.toolbar_2_menu,menu);
@@ -351,6 +317,8 @@ public class HomeFragment extends Fragment implements HelperAdapter.SelectedPake
 //        return true;
 //    }
 
+
+    //OLOS O PARAKATW KWDIKAS HTAN GIA TO SEARCH ALLA DEN DOULEYEI
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);

@@ -47,15 +47,11 @@ public class NotificationsFragment extends Fragment {
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
     private String loginMethod;
-    private AuthUI authUI;
+
     private Button button,button5;
     private TextView usernametext,emailtext;
-    private NotificationsViewModel notificationsViewModel;
     private HomeActivityViewModel homeActivityViewModel,numberViewModel;
-    private TextView testview;
-    int number = 0;
     private TextView prosParadoshView,paradothikanView;
-    //private int prosParadosh;
     int prosParadosh=0;
 
     @Override
@@ -66,18 +62,17 @@ public class NotificationsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_notifications, container, false);
+
         button=view.findViewById(R.id.button);
         button5=view.findViewById(R.id.button5);
         usernametext=(TextView)view.findViewById(R.id.text_username);
         emailtext=(TextView)view.findViewById(R.id.text_email);
         prosParadoshView=(TextView)view.findViewById(R.id.textView13);
         paradothikanView=(TextView)view.findViewById(R.id.textView14);
-        notificationsViewModel = new ViewModelProvider(this).get(NotificationsViewModel.class);
         homeActivityViewModel = new ViewModelProvider(getActivity()).get(HomeActivityViewModel.class);
-        //View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-        testview=(TextView)view.findViewById(R.id.testtext);
         numberViewModel = new ViewModelProvider(getActivity()).get(HomeActivityViewModel.class);
-        //testview.setText(String.valueOf(numberViewModel.getNumber()));
+
+
         loginuser();
         countProsParadosh();
         countParadothikan();
@@ -95,19 +90,6 @@ public class NotificationsFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
-                if (FirebaseAuth.getInstance() != null){
-                    FirebaseAuth.getInstance().signOut();
-                }else{
-                    mGoogleSignInClient.signOut();
-                }
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-                getActivity().finish();
-
-                 */
-
-                //Einai pio swstos tropos alla den douleuei gia kapoio logo
                 if (FirebaseAuth.getInstance() != null) {
                     AuthUI.getInstance().signOut(getActivity())
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -133,18 +115,6 @@ public class NotificationsFragment extends Fragment {
         return view;
     }
 
-//    @Override
-//    public void onSaveInstanceState(@NonNull Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        //mainactivityViewModel.setmNumber(5);
-//    }
-    //@Override
-    //public void onDestroyView() {
-    //    super.onDestroyView();
-    //    Toast.makeText(getActivity(), "This is my Toast message!",
-    //            Toast.LENGTH_LONG).show();
-    //    notificationsViewModel.setmNumber(5);
-    //}
 
     public void loginuser(){
         mAuth=FirebaseAuth.getInstance();
@@ -224,6 +194,7 @@ public class NotificationsFragment extends Fragment {
 
         });
     }
+
 
     public void countParadothikan() {
 

@@ -3,6 +3,7 @@ package com.petsaki.epaketo;
 import java.io.Serializable;
 import java.util.Date;
 
+//basic antikeimeno gia ta paketa pou trabaw apo thn bash
 public class FetchData implements Serializable {
 
     String id,odos;

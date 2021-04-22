@@ -1,5 +1,7 @@
 package com.petsaki.epaketo;
 
+
+//Basic antikeimeno gia na pairnw ta dedomena toy xrhsth
 public class User {
 
     public String username,email;

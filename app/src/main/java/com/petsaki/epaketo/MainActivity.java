@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //allazei to xrwma apo ta text tou status bar
         //getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         requestPermission_location();
 
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user=mAuth.getCurrentUser();
 
+        //Blepei ama einai idi sindedemenos gia na ton steilei sto home
         if (user!=null){
             Intent intent = new Intent( MainActivity.this, HomeActivity.class);
             startActivity(intent);
@@ -99,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Anti na exei enter to keyboard exei send kai kali thn function tou button
     private TextView.OnEditorActionListener editorListener = new TextView.OnEditorActionListener() {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -118,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         String email = emailText.getText().toString().trim();
         String password = passwordText.getText().toString().trim();
 
+        //Elegxos lathwn
         if (email.isEmpty()) {
             emailText.setError("*Απαιτείται email!");
             emailText.requestFocus();
@@ -137,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             passwordText.setError(null);
         }
-        if (System.currentTimeMillis() > lastTimeSent + 30000) {
+        if (System.currentTimeMillis() > lastTimeSent + 60000) {
             closeKeyboard();
             button.setFocusable(true);
             button.setFocusableInTouchMode(true);
@@ -167,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
             });
 
         }else{
-            showToast("Πρέπει να περιμένεις 30 δευτερόλεπτα για ένα νέο email επαλήθευσης!");
+            showToast("Πρέπει να περιμένεις 60 δευτερόλεπτα για ένα νέο email επαλήθευσης!");
         }
     }
 
@@ -210,8 +214,6 @@ public class MainActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                //To Toast einai gia delete,tha to kanw argotera
-//                Toast.makeText(MainActivity.this,"firebaseAuthWithGoogle:" + account.getId(), Toast.LENGTH_LONG).show();
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
                 Toast.makeText(MainActivity.this,"Σύνδεση μέσω Google: απέτυχε.", Toast.LENGTH_LONG).show();
@@ -226,13 +228,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            //To Toast einai gia delete,tha to kanw argotera
                             Toast.makeText(MainActivity.this,"Σύνδεση μέσω Google: επιτυχής", Toast.LENGTH_LONG).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             String userID=user.getUid();
-//                            Toast.makeText(MainActivity.this,"Uid: "+ userID, Toast.LENGTH_LONG).show();
                             Query query = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
-//                            Toast.makeText(MainActivity.this,"Current user: "+ user, Toast.LENGTH_LONG).show();
 
                             query.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override

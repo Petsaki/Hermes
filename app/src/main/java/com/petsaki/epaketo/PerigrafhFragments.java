@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 public class PerigrafhFragments extends Fragment {
 
     private TextView odosMagaziou,odos_paralhpth,megethos,baros,etairia;
+
     public static PerigrafhFragments getInstance(){
         PerigrafhFragments perigrafhFragments = new PerigrafhFragments();
         return perigrafhFragments;
@@ -37,6 +38,7 @@ public class PerigrafhFragments extends Fragment {
         baros=(TextView)view.findViewById(R.id.baros_id);
         etairia=(TextView)view.findViewById(R.id.etairia_id);
 
+        //pairnw dedomena pou exei steilei kapio activity kai ta bazw sta Views
         Intent intent = getActivity().getIntent();
         if(intent.getExtras()!= null){
             FetchData fetchData = (FetchData) intent.getSerializableExtra("data");

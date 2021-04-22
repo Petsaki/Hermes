@@ -168,6 +168,7 @@
             android:text="Αποσύνδεση"
             android:textAllCaps="false"
             android:textSize="16sp"
+            app:backgroundTint="#0244E8"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+
+//HTAN GIA NA KRATAW TO SCROLL POTISION TOU RECYCLER VIEW. EINAI USELESS
 public class HomeActivityViewModel extends ViewModel{
     private MutableLiveData<String> mText;
     private int number = 0;

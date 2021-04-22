@@ -89,21 +89,11 @@ public class XarthsFragment extends Fragment implements OnMapReadyCallback {
                 != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
 
-        //ΜΑΡΙΕ ΒΓΑΛΕ ΤΟ ΙF ΑΠΟ ΕΔΩ!!!
         LatLng address = getLocationFromAddress(getActivity(), odos_paralhpth);
-//        if (address==null){
-//            address= getLocationFromAddress(getActivity(), "Κολοκοτρώνη 20, Τριάδι");
-//        }
+
         googleMap.addMarker(new MarkerOptions().position(address).title("Παράδωση").icon(BitmapDescriptorFactory.fromBitmap(smallMarker2)));
 
         LatLng address2 = getLocationFromAddress(getActivity(), odos_magaziou);
@@ -116,10 +106,6 @@ public class XarthsFragment extends Fragment implements OnMapReadyCallback {
         LatLngBounds bounds = builder.build();
         googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 200));
 
-//        googleMap.moveCamera(CameraUpdateFactory.newLatLng(address2));
-//        googleMap.animateCamera(CameraUpdateFactory.zoomIn());
-        // Zoom out to zoom level 10, animating with a duration of 2 seconds.
-//        googleMap.animateCamera(CameraUpdateFactory.zoomTo((float) 10.5), 2000, null);
         googleMap.setMyLocationEnabled(true);
     }
 
@@ -173,6 +159,7 @@ public class XarthsFragment extends Fragment implements OnMapReadyCallback {
         mapView.onLowMemory();
     }
 
+    //Apo aples dieuthinseis tis kanei sintetagmenes
     public LatLng getLocationFromAddress(Context context, String strAddress)
     {
         Geocoder coder= new Geocoder(context);

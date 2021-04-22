@@ -48,13 +48,11 @@ import java.util.List;
 
 public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCallback {
 
-//    private MapView mapView;
-    private Polyline polyline;
-    private Button akyrwshButton,epiloghButton;
+    private Button epiloghButton;
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
-    private DatabaseReference reference;
+
     private TabLayout tabLayout;
     private ViewPager viewPager;
     FetchData fetchDataPaketo;
@@ -62,9 +60,6 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
     boolean checking;
     private Toast toast;
 
-    private Button buttonA,buttonE;
-
-//    private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +69,6 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
         user=mAuth.getCurrentUser();
         tabLayout= findViewById(R.id.tabLayout2);
         viewPager = findViewById(R.id.viewPager);
-        akyrwshButton=findViewById(R.id.button3);
         epiloghButton=findViewById(R.id.button4);
         setTitle("Πληροφορίες Πακέτου");
         getSupportActionBar().setElevation(0);
@@ -106,19 +100,7 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
             actionBar.setHomeAsUpIndicator(R.drawable.outline_arrow_back_24);
         }
 
-
-
         getTabs();
-
-        //Google maps things :/
-//        Bundle mapViewBundle = null;
-//        if (savedInstanceState !=null){
-//            mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY);
-//        }
-//        mapView = (MapView) findViewById(R.id.mapView);
-//        mapView.onCreate(mapViewBundle);
-//        mapView.getMapAsync(this);
-
 
     }
 
@@ -151,110 +133,6 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
         overridePendingTransition(R.anim.corner_down_right,R.anim.slide_out_right);
     }
 
-//    @Override
-//    public void onMapReady(GoogleMap googleMap) {
-//        if (ActivityCompat.checkSelfPermission(ItemActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
-//                != PackageManager.PERMISSION_GRANTED
-//                && ActivityCompat.checkSelfPermission(ItemActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            // TODO: Consider calling
-//            //    ActivityCompat#requestPermissions
-//            // here to request the missing permissions, and then overriding
-//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//            //                                          int[] grantResults)
-//            // to handle the case where the user grants the permission. See the documentation
-//            // for ActivityCompat#requestPermissions for more details.
-//            return;
-//        }
-//        LatLng address = getLocationFromAddress(this, "Κολοκοτρώνη 20, Τριάδι, 57001");
-//        googleMap.addMarker(new MarkerOptions().position(address).title("Παράδοση"));
-//
-//        LatLng address2 = getLocationFromAddress(this, "Εγνατία, Θεσσαλονίκη");
-//        googleMap.addMarker(new MarkerOptions().position(address2).title("Πακέτο"));
-//        googleMap.moveCamera(CameraUpdateFactory.newLatLng(address2));
-//        googleMap.animateCamera(CameraUpdateFactory.zoomIn());
-//        // Zoom out to zoom level 10, animating with a duration of 2 seconds.
-//        googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
-//        googleMap.setMyLocationEnabled(true);
-//    }
-//
-//    @Override
-//    public void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//
-//        Bundle mapViewBundle = outState.getBundle(MAPVIEW_BUNDLE_KEY);
-//        if (mapViewBundle == null) {
-//            mapViewBundle = new Bundle();
-//            outState.putBundle(MAPVIEW_BUNDLE_KEY, mapViewBundle);
-//        }
-//
-//        mapView.onSaveInstanceState(mapViewBundle);
-//    }
-//
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        mapView.onResume();
-//    }
-//
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        mapView.onStart();
-//    }
-//
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//        mapView.onStop();
-//    }
-//
-//
-//    @Override
-//    public void onPause() {
-//        mapView.onPause();
-//        super.onPause();
-//    }
-//
-//    @Override
-//    public void onDestroy() {
-//        mapView.onDestroy();
-//        super.onDestroy();
-//    }
-//
-//    @Override
-//    public void onLowMemory() {
-//        super.onLowMemory();
-//        mapView.onLowMemory();
-//    }
-//
-//    public LatLng getLocationFromAddress(Context context, String strAddress)
-//    {
-//        Geocoder coder= new Geocoder(context);
-//        List<Address> address;
-//        LatLng p1 = null;
-//
-//        try
-//        {
-//            address = coder.getFromLocationName(strAddress, 5);
-//            if(address==null)
-//            {
-//                return null;
-//            }
-//            Address location = address.get(0);
-//            location.getLatitude();
-//            location.getLongitude();
-//
-//            p1 = new LatLng(location.getLatitude(), location.getLongitude());
-//        }
-//        catch (Exception e)
-//        {
-//            e.printStackTrace();
-//        }
-//        return p1;
-//
-//    }
-
 
     public void akyrwshFun(View view){
         onBackPressed();
@@ -262,22 +140,7 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
 
     public void epiloghFun(View view){
         epiloghButton.setEnabled(false);
-//        reference = FirebaseDatabase.getInstance().getReference().child("Paketa").child(paketoID);
-//        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.getValue()==null){
-//
-//                }else{
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         Query query = ref.child("Paketa").orderByChild("hmerominia").equalTo(paketoHmer);
         checking=true;
@@ -286,44 +149,20 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
                     if (ds.getValue()!=null){
+
                         String keyPaketou=ds.getKey();
-                        //Toast.makeText(ItemActivity.this, "Το πακέτο αυτό πλέον βρίσκετε στην καρτέλα Προς Παράδοση!", Toast.LENGTH_SHORT).show();
                         showToast("Το πακέτο αυτό πλέον βρίσκετε στην καρτέλα Προς Παράδοση!");
 
-
-//                        String userID=user.getUid();
-//                        Query query = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
 
                         DatabaseReference frompath = FirebaseDatabase.getInstance().getReference().child("Paketa").child(keyPaketou);
                         DatabaseReference topath = FirebaseDatabase.getInstance().getReference().child("Users")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("ProsParadwsh").child(keyPaketou);
 
                         movePaketo(frompath,topath);
-//                        FirebaseDatabase.getInstance().getReference("Users")
-//                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("ProsParadwsh")
-//                                .setValue(dataSnapshot.getValue());
-
-
-//                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<Void> task) {
-//                                if (task.isSuccessful()) {
-//                                    showToast("User has been singed up successfully!");
-//
-//                                } else {
-//                                    showToast("Failed to singed up. Try again!");
-//                                }
-////                                progressBar.setVisibility(View.GONE);
-//                            }
-//                        });
-
-
-//                        ds.getRef().removeValue();
                         checking=false;
                     }
                 }
                 if(checking){
-                    //Toast.makeText(ItemActivity.this, "Φαίνεται ότι κάποιος άλλος πρόλαβε αυτό το πακέτο.", Toast.LENGTH_SHORT).show();
                     showToast("Φαίνεται ότι κάποιος άλλος πρόλαβε αυτό το πακέτο.");
                     epiloghButton.setEnabled(true);
                 }
@@ -333,7 +172,6 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-//        Toast.makeText(this, "ID: "+ paketoHmer, Toast.LENGTH_SHORT).show();
     }
 
     public void showToast(String string) {
@@ -343,6 +181,7 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
         }
     }
 
+    //Apo thn bash, kanw cut to paketo apo ta paketa kai to bazw ston xrhsth
     private void movePaketo(final DatabaseReference fromPath, final DatabaseReference toPath) {
         fromPath.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -367,7 +206,5 @@ public class ItemActivity extends AppCompatActivity{ //implements OnMapReadyCall
             }
         });
     }
-
-
 
 }

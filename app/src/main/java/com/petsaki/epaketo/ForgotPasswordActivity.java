@@ -46,6 +46,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         button=(Button) findViewById(R.id.forgot_button);
         auth=FirebaseAuth.getInstance();
 
+        //To exw mono otan allackei kati na bgalei to error
         emailText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -64,9 +65,11 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
             }
         });
+
         emailText.setOnEditorActionListener(editorListener);
     }
 
+    //Otan grafei to email, anti gia to enter exw balei to send(to belaki) kai kalw thn function tou koumpiou apostolh
     private TextView.OnEditorActionListener editorListener = new TextView.OnEditorActionListener() {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -83,6 +86,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     public void reset_password_click(View view){
         String email = emailText.getText().toString().trim();
 
+        //tsekarw gia lathoi
         if (email.isEmpty()){
             emailtextInput.setError("Δεν μπορεί να είναι κενό");
             emailtextInput.requestFocus();
@@ -97,6 +101,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
 
 
+        //Stelnei to email + exw antispam alla to pernane eukola
         if(System.currentTimeMillis() > lastTimeSent + 60000) {
             progressBar.setVisibility(View.VISIBLE);
             button.setEnabled(false);

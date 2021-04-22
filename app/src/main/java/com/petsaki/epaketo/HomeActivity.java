@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -15,20 +16,20 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 public class HomeActivity extends AppCompatActivity {
+
     HomeActivityViewModel homeActivityViewModel;
+    BadgeDrawable badge;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_Epaketo_blue_sh);
         setContentView(R.layout.activity_home);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-//                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
-//                .build();
+
+        //Oti leei nav einai gia thn mpara katw poy exoyme
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
         NavigationUI.setupWithNavController(navView, navController);
         homeActivityViewModel = new ViewModelProvider(this).get(HomeActivityViewModel.class);
 
@@ -38,14 +39,13 @@ public class HomeActivity extends AppCompatActivity {
                 // do nothing here
             }
         });
+        //Htan gia na bgazei ayto to noymero poses eidopoihshs exeis
+//        badge = navView.getOrCreateBadge(R.id.navigation_dashboard);
+//        badge.isVisible();
+//        badge.setNumber(99);
     }
 
-//    @Override
-//    public void finish() {
-//        super.finish();
-//        this.overridePendingTransition(R.anim.corner_down_right,R.anim.slide_out_right);
-//    }
-
+//GIA TO SEARCH HTAN. MHN TA DINEIS SHMASIA OLA TA PARAKATW
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -67,4 +67,5 @@ public class HomeActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
