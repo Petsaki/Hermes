@@ -154,13 +154,13 @@ public class MainActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                        //if(user.isEmailVerified()){
-                        //setUserName(MainActivity.this,username);
+                        if(user.isEmailVerified()){
+                            //setUserName(MainActivity.this,username);
                             connected();
-                        //}else{
-                        //user.sendEmailVerification();
+                        }else{
+                        user.sendEmailVerification();
                         showToast("Ελέγξτε το email σας για να επαληθεύσετε τον λογαριασμό σας!");
-                       // }
+                        }
                         lastTimeSent = System.currentTimeMillis();
                     } else {
                         showToast("Αποτυχία σύνδεσης!");

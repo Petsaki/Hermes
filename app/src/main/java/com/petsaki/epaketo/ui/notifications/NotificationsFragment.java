@@ -122,7 +122,6 @@ public class NotificationsFragment extends Fragment {
         user=FirebaseAuth.getInstance().getCurrentUser();
         reference= FirebaseDatabase.getInstance().getReference("Users");
         userID=user.getUid();
-        usernametext.setText("MPHKA");
 
 
         for (UserInfo user: Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getProviderData()) {
