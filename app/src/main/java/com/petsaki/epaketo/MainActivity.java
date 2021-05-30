@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private long lastTimeSent,spamTime = 0;
     private Toast toast;
     private Button button;
+    private String old_email="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,38 +142,40 @@ public class MainActivity extends AppCompatActivity {
         } else {
             passwordText.setError(null);
         }
-        if (System.currentTimeMillis() > lastTimeSent + 60000) {
-            closeKeyboard();
-            button.setFocusable(true);
-            button.setFocusableInTouchMode(true);
-            button.requestFocus();
-            progressBar.setVisibility(View.VISIBLE);
-            button.setEnabled(false);
-            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        closeKeyboard();
+        button.setFocusable(true);
+        button.setFocusableInTouchMode(true);
+        button.requestFocus();
+        progressBar.setVisibility(View.VISIBLE);
+        button.setEnabled(false);
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                        if(user.isEmailVerified()){
-                            //setUserName(MainActivity.this,username);
-                            connected();
+                    if(user.isEmailVerified()){
+                        connected();
+                    }else if(old_email.equals(email)){
+                        if (System.currentTimeMillis() > lastTimeSent + 60000){
+                            user.sendEmailVerification();
+                            showToast("Ελέγξτε το email σας για να επαληθεύσετε τον λογαριασμό σας!");
                         }else{
+                            showToast("Πρέπει να περιμένεις 1 λεπτό για ένα νέο email επαλήθευσης!");
+                        }
+                    }else if(!old_email.equals(email)){
                         user.sendEmailVerification();
                         showToast("Ελέγξτε το email σας για να επαληθεύσετε τον λογαριασμό σας!");
-                        }
                         lastTimeSent = System.currentTimeMillis();
-                    } else {
-                        showToast("Αποτυχία σύνδεσης!");
+                        old_email = email;
                     }
-                    progressBar.setVisibility(View.GONE);
-                    button.setEnabled(true);
+                } else {
+                    showToast("Αποτυχία σύνδεσης!");
                 }
-            });
-
-        }else{
-            showToast("Πρέπει να περιμένεις 60 δευτερόλεπτα για ένα νέο email επαλήθευσης!");
-        }
+                progressBar.setVisibility(View.GONE);
+                button.setEnabled(true);
+            }
+        });
     }
 
     public void sing_up_click(View view){
