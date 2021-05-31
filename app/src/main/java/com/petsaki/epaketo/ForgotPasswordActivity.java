@@ -114,8 +114,11 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         toast.makeText(ForgotPasswordActivity.this, "", Toast.LENGTH_LONG);
-                        toast.cancel();
-                        showToast("Το email στάλθηκε!");
+                        if (toast == null || toast.getView().getWindowVisibility() != View.VISIBLE) {
+                            showToast("Το email στάλθηκε!");
+                        }else{
+                            toast.cancel();
+                        }
                         lastTimeSent = System.currentTimeMillis();
                     } else {
                         showToast("Κάτι πήγε στραβά.");
